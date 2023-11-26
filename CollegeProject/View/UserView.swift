@@ -53,7 +53,7 @@ struct mainMsgView: View {
                     HStack{
                         
                         NavigationLink{
-                            Accounts()
+                            EditProfileView()
                         } label: {
                             VStack{
                                 Image(systemName: "person.circle.fill")
