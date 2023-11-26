@@ -8,6 +8,7 @@
 import SwiftUI
 import ContactsUI
 
+
 struct mainMsgView: View {
     
     @State private var selectedContacts: [CNContact] = []

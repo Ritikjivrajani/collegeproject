@@ -54,7 +54,7 @@ struct SignUpView: View {
                         SecureFieldView(fieldData: $reTypePassword, placeholderText: "Re - Type Your Password...")
                         
                         NavigationLink {
-                            mainMsgView()
+                            ContentView()
                         } label: {
                             Text("Create account")
                                 .font(.title2)
