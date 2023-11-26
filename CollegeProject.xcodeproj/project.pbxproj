@@ -24,6 +24,7 @@
 		66F2C9C32B13162B00D775CE /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2C9C22B13162B00D775CE /* ContactModel.swift */; };
 		66FA09AE2B05EBA0005776DA /* BackGroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA09AD2B05EBA0005776DA /* BackGroundView.swift */; };
 		B523F8142B134DC2000521EA /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523F8132B134DC2000521EA /* EditProfileView.swift */; };
+		B523F8162B1361D3000521EA /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523F8152B1361D3000521EA /* ContactView.swift */; };
 		B5D17B322B131C0400879D85 /* TermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D17B312B131C0400879D85 /* TermsAndConditions.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		66F2C9C22B13162B00D775CE /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		66FA09AD2B05EBA0005776DA /* BackGroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundView.swift; sourceTree = "<group>"; };
 		B523F8132B134DC2000521EA /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		B523F8152B1361D3000521EA /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		B5D17B312B131C0400879D85 /* TermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 				6644409F2B0DCBC40024F1BE /* UserView.swift */,
 				664440A72B0DD1170024F1BE /* Setting */,
 				B523F8132B134DC2000521EA /* EditProfileView.swift */,
+				B523F8152B1361D3000521EA /* ContactView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				B523F8142B134DC2000521EA /* EditProfileView.swift in Sources */,
 				66C7AEC22B063C81003AAEF0 /* LogInView.swift in Sources */,
 				66FA09AE2B05EBA0005776DA /* BackGroundView.swift in Sources */,
+				B523F8162B1361D3000521EA /* ContactView.swift in Sources */,
 				667E37452B10620200234BB5 /* Help.swift in Sources */,
 				B5D17B322B131C0400879D85 /* TermsAndConditions.swift in Sources */,
 				6668BAD12B00ECA700551459 /* CollegeProjectApp.swift in Sources */,

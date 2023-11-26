@@ -6,20 +6,21 @@
 //
 
 import SwiftUI
-import Contacts
+import ContactsUI
 
 struct mainMsgView: View {
     
+    @State private var selectedContacts: [CNContact] = []
+    @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
-    @State private var items: [String] = ["user 1", "user 2", "user 3", "user 4", "user 5", "user 6", "user 7", "user 8"]
     
     var body: some View {
         NavigationView {
             
             VStack{
                 ScrollView {
-                    ForEach(items , id: \.self) { item in
+                    ForEach(selectedContacts , id: \.self) { contact in
                         VStack {
                             HStack (spacing: 16) {
                                 NavigationLink {
@@ -30,8 +31,8 @@ struct mainMsgView: View {
                                         .padding()
                                         .overlay(RoundedRectangle(cornerRadius: 44).stroke(Color.black , lineWidth: 1))
                                     VStack(alignment: .leading) {
-                                        Text(item)
-                                        Text("Message sent to user ")
+                                        Text("\(contact.givenName) \(contact.familyName)")
+                                        
                                     }
                                     Spacer()
                                     
@@ -52,22 +53,7 @@ struct mainMsgView: View {
                     HStack{
                         
                         NavigationLink{
-                            mainMsgView()
-                        } label: {
-                            VStack(alignment: .center){
-                                Image(systemName: "ellipsis.message.fill")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundColor(.black)
-                                
-                                Text("Chats")
-                                    .foregroundColor(.black)
-                            }
-                        }
-                        .frame(width: 100)
-                        
-                        NavigationLink{
-                            EditProfileView()
+                            Accounts()
                         } label: {
                             VStack{
                                 Image(systemName: "person.circle.fill")
@@ -82,12 +68,27 @@ struct mainMsgView: View {
                         .frame(width: 100)
                         
                         NavigationLink{
+                            
+                        } label: {
+                            VStack(alignment: .center){
+                                Image(systemName: "ellipsis.message.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.black)
+                                
+                                Text("Chats")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                        .frame(width: 100)
+                        
+                        NavigationLink{
                             Settings()
                         } label: {
                             VStack(alignment: .center){
                                 Image(systemName: "person.2.badge.gearshape.fill")
                                     .resizable()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 40, height: 30)
                                     .foregroundColor(.black)
                                 
                                 Text("settings")
@@ -127,47 +128,20 @@ struct mainMsgView: View {
                         }
                         .padding()
                         
-                        
-                        Button {
-                            Task.init {
-                                await fetchData()
-                            }
+                        Button{
+                            // Present the contact picker
+                            self.isContactPickerPresented.toggle()
                         } label: {
                             Image(systemName: "square.and.pencil")
                         }
-
+                        .sheet(isPresented: $isContactPickerPresented) {
+                                        ContactPicker(selectedContacts: $selectedContacts)
+                                    }
                     }
             })
         }
     }
     
-    func fetchData() async {
-        let store = CNContactStore()
-        
-        let keys = [CNContactGivenNameKey, CNContactPhoneNumbersKey] as [CNKeyDescriptor]
-        
-        let fetchRequest = CNContactFetchRequest(keysToFetch: keys)
-        
-        do{
-            try store.enumerateContacts(with: fetchRequest, usingBlock: { contact, result in
-                for number in contact.phoneNumbers{
-                    
-                    switch number.label{
-                    case CNLabelPhoneNumberMobile:
-                        print("- mobile: \(number.value.stringValue)")
-                    case CNLabelPhoneNumberMain:
-                        print("- Main: \(number.value.stringValue)")
-                    default:
-                        print("- Others: \(number.value.stringValue)")
-                    }
-                    
-                    print("- \(number)")
-                }
-            })
-        } catch {
-            print(error)
-        }
-    }
 }
 
 
