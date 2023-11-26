@@ -59,7 +59,7 @@ struct EditProfileView_Previews: PreviewProvider {
         EditProfileView()
     }
 }
-//mark: - this is test
+
 struct PhotoPicker: UIViewControllerRepresentable {
     @Binding var image: UIImage
 
