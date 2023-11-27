@@ -7,49 +7,50 @@
 
 import SwiftUI
 import ContactsUI
-
+import Contacts
 
 struct mainMsgView: View {
-    
     @State private var selectedContacts: [CNContact] = []
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
-    
     var body: some View {
         NavigationView {
-            
             VStack{
-                ScrollView {
-                    ForEach(selectedContacts , id: \.self) { contact in
-                        VStack {
-                            HStack (spacing: 16) {
-                                NavigationLink {
+            //MARK: - UserDisplayView()
+                List{
+                    ForEach(selectedContacts, id: \.self) { contact in
+                        NavigationLink {
+                            ContentView()
+                        } label: {
+                            HStack (spacing: 16){
+                                Image(systemName: "person.fill")
+                                    .font(.system(size: 32))
+                                    .padding()
+                                    .overlay(RoundedRectangle(cornerRadius: 44).stroke(Color.black , lineWidth: 1))
+                                
+                                VStack(alignment: .leading) {
+                                    Text("\(contact.givenName) \(contact.familyName)")
                                     
-                                } label: {
-                                    Image(systemName: "person.fill")
-                                        .font(.system(size: 32))
-                                        .padding()
-                                        .overlay(RoundedRectangle(cornerRadius: 44).stroke(Color.black , lineWidth: 1))
-                                    VStack(alignment: .leading) {
-                                        Text("\(contact.givenName) \(contact.familyName)")
-                                        
-                                    }
-                                    Spacer()
-                                    
-                                    Text("22nd")
-                                        .font(.system(size: 14 , weight: .semibold))
+                                    Text(contact.phoneNumbers.first?.value.stringValue ?? "")
+                                        .foregroundColor(.gray)
                                 }
-                                .foregroundColor(.black)
-
+                                
+                                Spacer()
+                                
+                                Text("22nd")
+                                    .font(.system(size: 14 , weight: .semibold))
                             }
-                            
-                            Divider()
-                            .padding(.vertical , 8)
-                        }.padding(.horizontal)
+                            .foregroundColor(.black)
+                        }
+                        .padding(.vertical , 8)
                     }
+                    .onDelete(perform: deleteItems)
                 }
+                .listStyle(.grouped)
+                .scrollContentBackground(.hidden)
                 
+            //MARK: - BottomView()
                 VStack{
                     HStack{
                         
@@ -101,50 +102,45 @@ struct mainMsgView: View {
                 }
             }
             
+            //MARK: -  ()
             .navigationTitle("Chats")
             .searchable(text: $searchText)
             
-            .toolbar(content:
-                {
-                    
+            .toolbar{
                 ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            
-                        } label: {
-                            Text("Edit").bold()
-                        }
-                    }
-                    
-                    
-                    ToolbarItemGroup(placement: .primaryAction) {
-                        Button(action:{
-                            isImagePickerPresented.toggle()
-                        }) {
-                            Image(systemName: "camera")
-                            
-                        }
+                    EditButton()
+                }
+                
+                ToolbarItemGroup(placement: .primaryAction) {
+                    Button(action:{
+                        isImagePickerPresented.toggle()
+                    }) {
+                        Image(systemName: "camera")
                         
-                        .sheet(isPresented: $isImagePickerPresented) {
-                            CameraView(isImagePickerPresented: $isImagePickerPresented)
-                        }
-                        .padding()
-                        
-                        Button{
-                            // Present the contact picker
-                            self.isContactPickerPresented.toggle()
-                        } label: {
-                            Image(systemName: "square.and.pencil")
-                        }
-                        .sheet(isPresented: $isContactPickerPresented) {
-                                        ContactPicker(selectedContacts: $selectedContacts)
-                                    }
                     }
-            })
+                    .sheet(isPresented: $isImagePickerPresented) {
+                        CameraView(isImagePickerPresented: $isImagePickerPresented)
+                    }
+                    .padding()
+                    
+                    Button{
+                        self.isContactPickerPresented.toggle()
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+                    .sheet(isPresented: $isContactPickerPresented) {
+                                    ContactPicker(selectedContacts: $selectedContacts)
+                    }
+                }
+            }
         }
+        .navigationBarBackButtonHidden(true)
     }
     
+    func deleteItems(indexSet: IndexSet){
+        selectedContacts.remove(atOffsets: indexSet)
+    }
 }
-
 
 struct mainMsgView_Previews: PreviewProvider {
     static var previews: some View {

@@ -71,53 +71,12 @@ struct SignUpView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView()
-    }
-}
-
-struct TextFieldView: View {
-    
-    @Binding var fieldData: String
-    var placeholderText: String
-    
-    var body: some View {
-        VStack(spacing: -5){
-            TextField(text: $fieldData) {
-                Text(placeholderText)
-                    .font(.title3)
-                    .foregroundColor(.black)
-                    .bold()
-            }
-            .frame(width: 300, height: 50)
-            
-            Rectangle()
-                .frame(width: 300, height: 1)
-        }
-    }
-}
-
-struct SecureFieldView: View {
-    
-    @Binding var fieldData: String
-    var placeholderText: String
-    
-    var body: some View {
-        VStack(spacing: -5){
-            SecureField(text: $fieldData) {
-                Text(placeholderText)
-                    .font(.title3)
-                    .foregroundColor(.black)
-                    .bold()
-            }
-            .frame(width: 300, height: 50)
-            
-            Rectangle()
-                .frame(width: 300, height: 1)
-        }
     }
 }

@@ -14,7 +14,6 @@ struct HomeView: View {
                 BackGroundView()
                 
                 VStack{
-                    
                     Group{
                         VStack(alignment: .leading){
                             Text("Welcome to")

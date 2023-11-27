@@ -1,4 +1,3 @@
-
 //
 //  Settings.swift
 //  CollegeProject
@@ -9,15 +8,14 @@
 import SwiftUI
 
 struct Settings: View {
-    var settingsItem: [String] = ["Accounts", "Privacy", "Contact Us", "Terms and Conditions"]
     
+    var settingsItem: [String] = ["Accounts", "Privacy", "Contact Us", "Terms and Conditions"]
     var settingsItem2: [String] = ["Help", "Tell a Friend"]
     
     var body: some View {
         NavigationView {
             ZStack{
                 VStack{
-                    
                     HStack{
                         Text("Settings")
                             .font(.largeTitle)
@@ -27,26 +25,17 @@ struct Settings: View {
                     }
                     .offset(y: -30)
                     
-                
                     List{
                         Section{
                             ForEach(settingsItem, id: \.self){ Item in
-                                NavigationLink{
-                                    
-                                } label: {
-                                    Text(Item)
-                                }
+                                itemView(for: Item)
                             }
                         }
                         .listRowBackground(Color.gray .opacity(0.3))
                         
                         Section{
                             ForEach(settingsItem2, id: \.self){ Item in
-                                NavigationLink{
-                                    //
-                                } label: {
-                                    Text(Item)
-                                }
+                                itemView(for: Item)
                             }
                         }
                         .listRowBackground(Color.gray .opacity(0.3))
@@ -58,6 +47,36 @@ struct Settings: View {
                 .background{
                     BackGroundView()
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func itemView(for item: String) -> some View {
+        switch item {
+        case "Accounts":
+            NavigationLink(destination: Accounts()) {
+                Text("Accounts")
+            }
+        case "Privacy":
+            NavigationLink(destination: Privacy()) {
+                Text("Privacy")
+            }
+        case "Terms and Conditions":
+            NavigationLink(destination: TermsAndConditionsView()) {
+                Text("Terms and conditions")
+            }
+        case "Contact Us":
+            NavigationLink(destination: ContactUs()) {
+                Text("Contact Us")
+            }
+        case "Help":
+            NavigationLink(destination: Help()) {
+                Text("Help")
+            }
+        default:
+            NavigationLink(destination: TellAFriend()) {
+                Text("Tell a Friend")
             }
         }
     }
