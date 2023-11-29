@@ -15,48 +15,48 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack {
-                // Display Messages
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 10) {
-                        ForEach(messages) { message in
-                            MessageView(message: message)
+                VStack {
+                    // Display Messages
+                    ScrollView {
+                        LazyVStack(alignment: .leading, spacing: 10) {
+                            ForEach(messages) { message in
+                                MessageView(message: message)
+                            }
                         }
                     }
-                }
-                .padding()
-                
-                // Input TextField and Send Button
-                HStack {
-                    TextField("Type a message...", text: $newMessage, onEditingChanged: { editing in
-                        isKeyboardHidden = !editing
-                    })
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(8)
+                    .padding()
                     
-                    Button(action: {
-                        sendMessage()
-                    }) {
-                        Image(systemName: "arrow.up.circle.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(.accentColor)
-                    }
-                    .padding(8)
-                }
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding()
-                .gesture(
-                    DragGesture().onChanged { gesture in
-                        if gesture.translation.height > 0 && !isKeyboardHidden {
-                            // Swipe down detected, dismiss the keyboard
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    // Input TextField and Send Button
+                    HStack {
+                        TextField("Type a message...", text: $newMessage, onEditingChanged: { editing in
+                            isKeyboardHidden = !editing
+                        })
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(8)
+                        
+                        Button(action: {
+                            sendMessage()
+                        }) {
+                            Image(systemName: "arrow.up.circle.fill")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(.accentColor)
                         }
+                        .padding(8)
                     }
-                )
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding()
+                    .gesture(
+                        DragGesture().onChanged { gesture in
+                            if gesture.translation.height > 0 && !isKeyboardHidden {
+                                // Swipe down detected, dismiss the keyboard
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
+                        }
+                    )
+                }
             }
-        }
     }
 
     func sendMessage() {

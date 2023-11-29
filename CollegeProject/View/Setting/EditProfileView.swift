@@ -34,7 +34,7 @@ struct EditProfileView: View {
                     }
                     .foregroundColor(.blue)
                     .sheet(isPresented: $isImagePickerPresented) {
-                        PhotoPicker(image: $viewModel.profilePicture)
+                        PhotoPickerView(image: $viewModel.profilePicture)
                     }
                 }
 

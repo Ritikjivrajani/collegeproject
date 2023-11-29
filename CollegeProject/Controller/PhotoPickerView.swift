@@ -11,9 +11,9 @@ import PhotosUI
 
 
 struct PhotoPickerView: UIViewControllerRepresentable {
+    
     @Binding var image: UIImage
-    @StateObject var viewModel = ProfileViewModel()
-
+    
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         @Binding var image: UIImage
 
@@ -53,9 +53,4 @@ struct PhotoPickerView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
-}
-
-
-#Preview {
-    PhotoPickerView(image: )
 }

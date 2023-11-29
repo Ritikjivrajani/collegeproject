@@ -63,7 +63,7 @@ struct Settings: View {
                 Text("Privacy")
             }
         case "Terms and Conditions":
-            NavigationLink(destination: TermsAndConditionsView()) {
+            NavigationLink(destination: TermsAndConditions()) {
                 Text("Terms and conditions")
             }
         case "Contact Us":

@@ -16,11 +16,11 @@ class ProfileViewModel: ObservableObject {
 
     init() {
         // Provide a default image if "default-profile-picture" is not found
-        if let defaultImage = UIImage(named: "default-profile-picture") {
+        if let defaultImage = UIImage(systemName: "person.circle"){
             self.profilePicture = defaultImage
         } else {
             // You can replace this with your own default image
-            self.profilePicture = UIImage(systemName: "person.fill")!
+            self.profilePicture = UIImage(systemName: "person.circle")!
         }
     }
 

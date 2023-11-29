@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TermsAndConditionsView: View {
+struct TermsAndConditions: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -81,8 +81,9 @@ If you have any questions or concerns regarding these Terms, please contact us a
                     .navigationTitle("Terms and Conditions")
                 }
             }
-struct TermsAndConditionsView_Previews: PreviewProvider {
+
+struct TermsAndConditions_Previews: PreviewProvider {
     static var previews: some View {
-        TermsAndConditionsView()
+        TermsAndConditions()
     }
 }
