@@ -10,19 +10,20 @@ import ContactsUI
 import Contacts
 
 struct mainMsgView: View {
+    
     @State private var selectedContacts: [CNContact] = []
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
+    
     var body: some View {
-        NavigationView {
+        NavigationView{
             VStack{
-            //MARK: - UserDisplayView()
+                //MARK: - UserDisplayView()
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
-                        NavigationLink {
-                            ContentView()
-                        } label: {
+                        
+                        NavigationLink(destination: ContentView(), label: {
                             HStack (spacing: 16){
                                 Image(systemName: "person.fill")
                                     .font(.system(size: 32))
@@ -42,7 +43,7 @@ struct mainMsgView: View {
                                     .font(.system(size: 14 , weight: .semibold))
                             }
                             .foregroundColor(.black)
-                        }
+                        })
                         .padding(.vertical , 8)
                     }
                     .onDelete(perform: deleteItems)
@@ -50,13 +51,11 @@ struct mainMsgView: View {
                 .listStyle(.grouped)
                 .scrollContentBackground(.hidden)
                 
-            //MARK: - BottomView()
+                //MARK: - BottomView()
                 VStack{
                     HStack{
                         
-                        NavigationLink{
-                            EditProfileView()
-                        } label: {
+                        NavigationLink(destination: EditProfileView(), label: {
                             VStack{
                                 Image(systemName: "person.circle.fill")
                                     .resizable()
@@ -66,7 +65,8 @@ struct mainMsgView: View {
                                 Text("Profile")
                                     .foregroundColor(.black)
                             }
-                        }
+                        })
+                        
                         .frame(width: 100)
                         
                         NavigationLink{
@@ -102,7 +102,7 @@ struct mainMsgView: View {
                 }
             }
             
-            //MARK: -  ()
+            //MARK: -  navigationView()
             .navigationTitle("Chats")
             .searchable(text: $searchText)
             
@@ -129,7 +129,7 @@ struct mainMsgView: View {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
-                                    ContactPicker(selectedContacts: $selectedContacts)
+                        ContactPicker(selectedContacts: $selectedContacts)
                     }
                 }
             }

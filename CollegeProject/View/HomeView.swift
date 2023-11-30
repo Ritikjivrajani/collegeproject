@@ -14,6 +14,11 @@ struct HomeView: View {
                 BackGroundView()
                 
                 VStack{
+                    
+                    Button("api"){
+                        API().getAPI()
+                    }
+                    
                     Group{
                         VStack(alignment: .leading){
                             Text("Welcome to")
@@ -29,9 +34,8 @@ struct HomeView: View {
                     
                     Group{
                         VStack(spacing: 20){
-                            NavigationLink {
-                                SignUpView()
-                            } label: {
+                            
+                            NavigationLink(destination: SignUpView(), label: {
                                 Text("Sign Up")
                                     .font(.title2)
                                     .bold()
@@ -39,19 +43,18 @@ struct HomeView: View {
                                     .frame(width: 300, height: 50)
                                     .background(.black)
                                     .cornerRadius(30)
-                            }
+                            })
                             
-                            NavigationLink {
-                                LogInView()
-                            } label: {
-                                Text("Log in")
+                            NavigationLink(destination: LogInView(), label: {
+                                Text("Log In")
                                     .font(.title2)
                                     .bold()
                                     .foregroundColor(.white)
                                     .frame(width: 300, height: 50)
                                     .background(.black)
                                     .cornerRadius(30)
-                            }
+                            })
+                            
                         }
                         .frame(width: 325, height: 200)
                         .background(.opacity(0.3))

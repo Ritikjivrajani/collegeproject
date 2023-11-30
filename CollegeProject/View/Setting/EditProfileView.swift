@@ -46,13 +46,12 @@ struct EditProfileView: View {
                         .frame(height: 100)
                 }
             }
-            .navigationTitle("Edit Profile")
-            .navigationBarItems(trailing: Button("Save") {
-                // Implement logic to save changes
-                viewModel.saveProfile()
-            })
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Edit Profile")
+        .navigationBarItems(trailing: Button("Save") {
+            // Implement logic to save changes
+            viewModel.saveProfile()
+        })
     }
 }
 

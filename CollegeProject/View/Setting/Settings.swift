@@ -13,7 +13,6 @@ struct Settings: View {
     var settingsItem2: [String] = ["Help", "Tell a Friend"]
     
     var body: some View {
-        NavigationView {
             ZStack{
                 VStack{
                     HStack{
@@ -48,7 +47,6 @@ struct Settings: View {
                     BackGroundView()
                 }
             }
-        }
     }
     
     @ViewBuilder
