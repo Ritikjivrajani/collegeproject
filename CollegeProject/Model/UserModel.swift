@@ -30,3 +30,33 @@ class API {
         task.resume()
     }
 }
+
+class YourViewModel: ObservableObject {
+    @Published var yourData: Description?
+
+    func insertData() {
+        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST" // Use "GET", "POST", or any other HTTP method
+
+        // Set up your request body if needed
+        // request.httpBody = ...
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            func handleResponse(data: Data?, response: URLResponse?, error: Error?) {
+                // Parse the data and update yourData property
+                if let data = data {
+                    let decoder = JSONDecoder()
+                    if let decodedData = try? decoder.decode(Description.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.yourData = decodedData
+                        }
+                    }
+                }
+            }
+        }.resume()
+    }
+}
+
+

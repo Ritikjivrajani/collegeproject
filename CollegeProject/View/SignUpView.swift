@@ -17,8 +17,9 @@ struct SignUpView: View {
     @State var password: String = ""
     @State var reTypePassword: String = ""
     @State var email: String = ""
-    @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var viewModel1 = ProfileViewModel()
     @State private var isImagePickerPresented = false
+    @ObservedObject var viewModel = YourViewModel()
     
     var body: some View {
         ZStack{
@@ -33,7 +34,7 @@ struct SignUpView: View {
                     Spacer()
                 }
                 
-                    Image(uiImage: viewModel.profilePicture)
+                    Image(uiImage: viewModel1.profilePicture)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 100, height: 100)
@@ -43,7 +44,7 @@ struct SignUpView: View {
                         }
 
                 .sheet(isPresented: $isImagePickerPresented) {
-                    PhotoPickerView(image: $viewModel.profilePicture)
+                    PhotoPickerView(image: $viewModel1.profilePicture)
                 }
                 
                 Text("Enter Your Details")
@@ -67,13 +68,16 @@ struct SignUpView: View {
                     
                     
                     NavigationLink(destination: mainMsgView(), label: {
-                        Text("Create account")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .bold()
-                            .frame(width: 300, height: 50)
-                            .background(.black)
-                            .cornerRadius(30)
+                        
+                        Button(action: { viewModel.insertData() }, label: {
+                            Text("Create account")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .bold()
+                                .frame(width: 300, height: 50)
+                                .background(.black)
+                                .cornerRadius(30)
+                        })
                     })
                 }
                 .frame(width: 350, height: 550)
