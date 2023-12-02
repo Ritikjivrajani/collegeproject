@@ -60,9 +60,13 @@ struct SignUpView: View {
     @State var password: String = ""
     @State var reTypePassword: String = ""
     @State var email: String = ""
-    @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var viewModel1 = ProfileViewModel()
     @State private var isImagePickerPresented = false
+<<<<<<< HEAD
     @State var tempImage = "person.circle"
+=======
+    @ObservedObject var viewModel = YourViewModel()
+>>>>>>> 098a947d86eb348e3a88e99ebcdd0253f2fc442b
     
     var body: some View {
         ZStack{
@@ -77,6 +81,7 @@ struct SignUpView: View {
                     Spacer()
                 }
                 
+<<<<<<< HEAD
 //                    Image(uiImage: viewModel.profilePicture)
 //                        .resizable()
 //                        .scaledToFill()
@@ -91,6 +96,20 @@ struct SignUpView: View {
 //                }
                 
                 TextFieldView(fieldData: $tempImage, placeholderText: "Enter Image...")
+=======
+                    Image(uiImage: viewModel1.profilePicture)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            isImagePickerPresented = true
+                        }
+
+                .sheet(isPresented: $isImagePickerPresented) {
+                    PhotoPickerView(image: $viewModel1.profilePicture)
+                }
+>>>>>>> 098a947d86eb348e3a88e99ebcdd0253f2fc442b
                 
                 Text("Enter Your Details")
                     .font(.title2)
@@ -117,13 +136,16 @@ struct SignUpView: View {
                     
                     
                     NavigationLink(destination: mainMsgView(), label: {
-                        Text("Create account")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .bold()
-                            .frame(width: 300, height: 50)
-                            .background(.black)
-                            .cornerRadius(30)
+                        
+                        Button(action: { viewModel.insertData() }, label: {
+                            Text("Create account")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .bold()
+                                .frame(width: 300, height: 50)
+                                .background(.black)
+                                .cornerRadius(30)
+                        })
                     })
                 }
                 .frame(width: 350, height: 550)

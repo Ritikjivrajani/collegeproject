@@ -22,6 +22,7 @@ struct LogInView: View {
                             .font(.largeTitle)
                             .bold()
                             .padding(.horizontal,40)
+                            .padding(.bottom, 60)
                         Spacer()
                     }
                     
@@ -33,7 +34,7 @@ struct LogInView: View {
                         Text("Enter Your Details")
                             .font(.title2)
                     }
-                    .padding(.bottom, 170)
+                    .padding(.bottom, 100)
                     
                     Group{
                         VStack(alignment: .leading, spacing: 20){
@@ -55,7 +56,7 @@ struct LogInView: View {
                         .frame(width: 350, height: 250)
                         .background(.opacity(0.3))
                         .cornerRadius(20)
-                        .padding(.bottom, 75)
+                        .padding(.bottom, 30)
                     }
                 }
             }
