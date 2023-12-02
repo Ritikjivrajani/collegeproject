@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B2F1A7E4-868F-46C6-BA87-82B91CE9E485"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CollegeProject/Model/UserModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "insertData(firstname:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - 128496d62ac25e2a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CollegeProject.YourViewModel.insertData() -&gt; ()"
+                  moduleName = "CollegeProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ritikjivrajani/Desktop/CollegeProject/CollegeProject/Model/UserModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - 128496d62ac25e2a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CollegeProject.YourViewModel.insertData() -&gt; ()"
+                  moduleName = "CollegeProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ritikjivrajani/Desktop/CollegeProject/CollegeProject/Model/UserModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "256">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CollegeProject/Model/UserModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "insertData(firstname:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3 - 128496d62ac25e96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CollegeProject.YourViewModel.insertData() -&gt; ()"
+                  moduleName = "CollegeProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ritikjivrajani/Desktop/CollegeProject/CollegeProject/Model/UserModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "1228">
+               </Location>
+               <Location
+                  uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3 - 751521aee8f409ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CollegeProject.YourViewModel.insertData() -&gt; ()"
+                  moduleName = "CollegeProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ritikjivrajani/Desktop/CollegeProject/CollegeProject/Model/UserModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "248">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
