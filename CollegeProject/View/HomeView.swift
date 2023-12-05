@@ -14,11 +14,6 @@ struct HomeView: View {
                 BackGroundView()
                 
                 VStack{
-                    
-                    Button("api"){
-                        API().getAPI()
-                    }
-                    
                     Group{
                         VStack(alignment: .leading){
                             Text("Welcome to")

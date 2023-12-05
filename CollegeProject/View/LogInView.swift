@@ -12,33 +12,9 @@ struct LogInView: View {
     @State var userName: String = ""
     @State var password: String = ""
     @State private var profilePicture: String = "person.circle"
-    @State private var isAuthenticated = false
-    
+    @State private var showAlert = false
     @State private var loginSuccess = false
-    
-    func handleLogin() {
-           // Fetch data from the API
-           APIService.fetchData { result in
-               switch result {
-               case .success(let users):
-                   // Compare user input with fetched user data
-                   if let matchedUser = users.first(where: { $0.userName == userName && $0.password == password }) {
-                       // Login successful
-                       print("Login successful for user: \(matchedUser.userName)")
-                       loginSuccess = true
-                   } else {
-                       // Login failed
-                       print("Invalid credentials")
-                       loginSuccess = false
-                   }
-               case .failure(let error):
-                   print("Error fetching data: \(error)")
-               }
-           }
-       }
-    
-//    let userInput = "UserInputHere" // Replace this with the user's input
-    
+    var viewModel = login()
     
     var body: some View {
         ZStack{
@@ -71,15 +47,18 @@ struct LogInView: View {
                             
                             SecureFieldView(fieldData: $password, placeholderText: "Password...")
                             
-                                Button { handleLogin() } label: {
-                                    Text("Log in")
-                                        .font(.title2)
-                                        .foregroundColor(.white)
-                                        .bold()
-                                        .frame(width: 300, height: 50)
-                                        .background(.black)
-                                        .cornerRadius(30)
-                                }
+                            Button {
+                                viewModel.handleLogin(userName: userName, password: password)
+                            } label: {
+                                Text("Log in")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                                    .bold()
+                                    .frame(width: 300, height: 50)
+                                    .background(.black)
+                                    .cornerRadius(30)
+                            }
+                            
                         }
                         .frame(width: 350, height: 250)
                         .background(.opacity(0.3))
