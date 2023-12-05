@@ -2,7 +2,7 @@
 //  TermsAndConditions.swift
 //  CollegeProject
 //
-//  Created by Ritik Jivrajani on 26/11/23.
+//  Created by Ritik Jivrajani on 28/11/23.
 //
 
 import SwiftUI

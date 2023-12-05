@@ -11,26 +11,33 @@ struct Privacy: View {
     var body: some View {
         NavigationView {
             ZStack {
-                BackGroundView()
+                List{
+                    Section{
+                        VStack(alignment: .leading, spacing: 20) {
+                            NavigationLink(destination: LastSeenOnlineView()) {
+                                Text("Last Seen & Online")
+                            }
+                            
+                            NavigationLink(destination: ProfilePhotoView()) {
+                                Text("Profile Photo")
+                            }
+                            
+                            NavigationLink(destination: AboutView()) {
+                                Text("About")
+                            }
+                            
+                            NavigationLink(destination: BlockedView()) {
+                                Text("Blocked")
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
                 
-                VStack(alignment: .leading, spacing: 20) {
-                    NavigationLink(destination: LastSeenOnlineView()) {
-                        Text("Last Seen & Online")
-                    }
-
-                    NavigationLink(destination: ProfilePhotoView()) {
-                        Text("Profile Photo")
-                    }
-
-                    NavigationLink(destination: AboutView()) {
-                        Text("About")
-                    }
-
-                    NavigationLink(destination: BlockedView()) {
-                        Text("Blocked")
-                    }
-
-                    Spacer()
+                .background{
+                    BackGroundView()
                 }
                 .padding()
             }

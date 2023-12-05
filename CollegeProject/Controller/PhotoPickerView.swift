@@ -2,7 +2,7 @@
 //  PhotoPickerView.swift
 //  CollegeProject
 //
-//  Created by Ritik Jivrajani on 27/11/23.
+//  Created by Ritik Jivrajani on 26/11/23.
 //
 
 import SwiftUI
@@ -52,5 +52,5 @@ struct PhotoPickerView: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) { }
 }

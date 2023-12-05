@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Settings: View {
+struct SettingsView: View {
     
     var settingsItem: [String] = ["Accounts", "Privacy", "Contact Us", "Terms and Conditions"]
     var settingsItem2: [String] = ["Help", "Tell a Friend"]
@@ -53,7 +53,7 @@ struct Settings: View {
     func itemView(for item: String) -> some View {
         switch item {
         case "Accounts":
-            NavigationLink(destination: Accounts()) {
+            NavigationLink(destination: EditProfileView()) {
                 Text("Accounts")
             }
         case "Privacy":
@@ -82,6 +82,6 @@ struct Settings: View {
 
 struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        Settings()
+        SettingsView()
     }
 }

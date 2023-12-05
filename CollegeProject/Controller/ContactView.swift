@@ -9,14 +9,6 @@
 import SwiftUI
 import ContactsUI
 
-struct ContactView: View {
-    var body: some View {
-        VStack {
-            
-        }
-    }
-}
-
 struct ContactPicker: UIViewControllerRepresentable {
     @Binding var selectedContacts: [CNContact]
 
@@ -43,8 +35,13 @@ struct ContactPicker: UIViewControllerRepresentable {
             _selectedContacts = selectedContacts
         }
 
-        func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
-            selectedContacts.append(contentsOf: contacts)
+        func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+            // Check if the selected contact already exists in the array
+            if !selectedContacts.contains(where: { $0.identifier == contact.identifier }) {
+                // If the contact is not already in the array, add it
+                selectedContacts.append(contact)
+            }
+            picker.dismiss(animated: true, completion: nil)
         }
 
         private func contactPicker(_ picker: CNContactPickerViewController, didDeselectContact contact: CNContact) {
@@ -56,11 +53,5 @@ struct ContactPicker: UIViewControllerRepresentable {
         func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
             // Handle cancellation
         }
-    }
-}
-
-struct ContactView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactView()
     }
 }

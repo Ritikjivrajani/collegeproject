@@ -2,19 +2,21 @@
 //  mainMsgView.swift
 //  CollegeProject
 //
-//  Created by Ritik Jivrajani on 17/11/23.
+//  Created by Ritik Jivrajani on 16/11/23.
 //
 
 import SwiftUI
 import ContactsUI
 import Contacts
 
-struct mainMsgView: View {
+struct UserView: View {
     
     @State private var selectedContacts: [CNContact] = []
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
+    
+    @ObservedObject var viewModel = YourViewModel()
     
     var body: some View {
         NavigationView{
@@ -23,7 +25,7 @@ struct mainMsgView: View {
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
                         
-                        NavigationLink(destination: ContentView(), label: {
+                        NavigationLink(destination: ChatView(userName: contact.givenName, familyName: contact.familyName), label: {
                             HStack (spacing: 16){
                                 Image(systemName: "person.fill")
                                     .font(.system(size: 32))
@@ -44,6 +46,11 @@ struct mainMsgView: View {
                             }
                             .foregroundColor(.black)
                         })
+                        
+                        Button("submit"){
+                            viewModel.insertData(firstName: contact.givenName, lastName: contact.familyName, userName: contact.givenName, contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "", password: contact.givenName)
+                        }
+                        
                         .padding(.vertical , 8)
                     }
                     .onDelete(perform: deleteItems)
@@ -85,7 +92,7 @@ struct mainMsgView: View {
                         .frame(width: 100)
                         
                         NavigationLink{
-                            Settings()
+                            SettingsView()
                         } label: {
                             VStack(alignment: .center){
                                 Image(systemName: "person.2.badge.gearshape.fill")
@@ -142,8 +149,8 @@ struct mainMsgView: View {
     }
 }
 
-struct mainMsgView_Previews: PreviewProvider {
+struct UserView_Preview: PreviewProvider {
     static var previews: some View {
-        mainMsgView()
+        UserView()
     }
 }

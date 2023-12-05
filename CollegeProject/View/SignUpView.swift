@@ -22,9 +22,9 @@ struct SignUpView: View {
                 "userName": username,
                 "contact": contactNumber,
                 "email": email,
-                "image": tempImage,
+                "image": profile,
                 "password": password
-            ]
+            ] as [String : Any]
 
             guard let jsonData = try? JSONSerialization.data(withJSONObject: parameters) else {
                 print("Failed to serialize data")
@@ -60,13 +60,10 @@ struct SignUpView: View {
     @State var password: String = ""
     @State var reTypePassword: String = ""
     @State var email: String = ""
-    @StateObject private var viewModel1 = ProfileViewModel()
+    @StateObject private var profile = ProfileViewModel()
     @State private var isImagePickerPresented = false
-<<<<<<< HEAD
-    @State var tempImage = "person.circle"
-=======
+
     @ObservedObject var viewModel = YourViewModel()
->>>>>>> 098a947d86eb348e3a88e99ebcdd0253f2fc442b
     
     var body: some View {
         ZStack{
@@ -80,24 +77,7 @@ struct SignUpView: View {
                         .padding(.horizontal,40)
                     Spacer()
                 }
-                
-<<<<<<< HEAD
-//                    Image(uiImage: viewModel.profilePicture)
-//                        .resizable()
-//                        .scaledToFill()
-//                        .frame(width: 100, height: 100)
-//                        .clipShape(Circle())
-//                        .onTapGesture {
-//                            isImagePickerPresented = true
-//                        }
-//
-//                .sheet(isPresented: $isImagePickerPresented) {
-//                    PhotoPickerView(image: $viewModel.profilePicture)
-//                }
-                
-                TextFieldView(fieldData: $tempImage, placeholderText: "Enter Image...")
-=======
-                    Image(uiImage: viewModel1.profilePicture)
+                    Image(uiImage: profile.profilePicture)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 100, height: 100)
@@ -107,9 +87,8 @@ struct SignUpView: View {
                         }
 
                 .sheet(isPresented: $isImagePickerPresented) {
-                    PhotoPickerView(image: $viewModel1.profilePicture)
+                    PhotoPickerView(image: $profile.profilePicture)
                 }
->>>>>>> 098a947d86eb348e3a88e99ebcdd0253f2fc442b
                 
                 Text("Enter Your Details")
                     .font(.title2)
@@ -130,14 +109,9 @@ struct SignUpView: View {
                     
                     SecureFieldView(fieldData: $reTypePassword, placeholderText: "Re - Type Your Password...")
                     
-                    Button("send"){
-                        sendDataToServer()
-                    }
-                    
-                    
-                    NavigationLink(destination: mainMsgView(), label: {
+                    NavigationLink(destination: UserView(), label: {
                         
-                        Button(action: { viewModel.insertData() }, label: {
+                        Button(action: { viewModel.insertData(firstName: firstName, lastName: lastName, userName: username, contact: contactNumber, email: email, image: "", password: password) }, label: {
                             Text("Create account")
                                 .font(.title2)
                                 .foregroundColor(.white)
