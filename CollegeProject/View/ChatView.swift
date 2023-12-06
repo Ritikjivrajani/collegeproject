@@ -94,3 +94,6 @@ struct ContentView_Previews: PreviewProvider {
         ChatView()
     }
 }
+
+
+// chat view
