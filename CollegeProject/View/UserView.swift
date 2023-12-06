@@ -16,7 +16,7 @@ struct UserView: View {
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
     
-    @ObservedObject var viewModel = YourViewModel()
+    @ObservedObject var viewModel = SignInModel()
     
     var body: some View {
         NavigationView{
@@ -25,7 +25,7 @@ struct UserView: View {
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
                         
-                        NavigationLink(destination: ChatView(userName: contact.givenName, familyName: contact.familyName), label: {
+                        NavigationLink(destination: { ChatView() }, label: {
                             HStack (spacing: 16){
                                 Image(systemName: "person.fill")
                                     .font(.system(size: 32))
@@ -92,7 +92,7 @@ struct UserView: View {
                         .frame(width: 100)
                         
                         NavigationLink{
-                            SettingsView()
+//                            SettingsView()
                         } label: {
                             VStack(alignment: .center){
                                 Image(systemName: "person.2.badge.gearshape.fill")

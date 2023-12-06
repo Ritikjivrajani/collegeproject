@@ -2,7 +2,7 @@
 //  ChatScreen.swift
 //  CollegeProject
 //
-//  Created by Ritik Jivrajani on 27/11/23.
+//  Created by Ritik Jivrajani on 26/11/23.
 //
 
 import SwiftUI
@@ -12,15 +12,13 @@ struct ChatView: View {
     @State private var messages: [Message] = []
     @State private var newMessage = ""
     @State private var isKeyboardHidden = true
-    @State var userName: String
-    @State var familyName: String
     
     var body: some View {
         NavigationView{
             VStack {
                 
                 VStack{
-                    Text("\(userName) \(familyName)")
+                    Text("UserName")
                         .font(.title2)
                         .padding(.top, 20)
                         .foregroundColor(.white)
@@ -39,13 +37,7 @@ struct ChatView: View {
                         }
                     }
                 }
-                
-                
-//                List{
-//                    ForEach(messages) { message in
-//                        MessageView(message: message)
-//                    }
-//                }
+                .padding()
                 
                 // Input TextField and Send Button
                 HStack {
@@ -99,6 +91,9 @@ struct ChatView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(userName: "", familyName: "")
+        ChatView()
     }
 }
+
+
+// chat view

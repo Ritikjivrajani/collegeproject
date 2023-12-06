@@ -63,7 +63,7 @@ struct SignUpView: View {
     @StateObject private var profile = ProfileViewModel()
     @State private var isImagePickerPresented = false
 
-    @ObservedObject var viewModel = YourViewModel()
+    @ObservedObject var viewModel = SignInModel()
     
     var body: some View {
         ZStack{
