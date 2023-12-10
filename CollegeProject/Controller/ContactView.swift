@@ -40,10 +40,11 @@ struct ContactPicker: UIViewControllerRepresentable {
             if !selectedContacts.contains(where: { $0.identifier == contact.identifier }) {
                 // If the contact is not already in the array, add it
                 selectedContacts.append(contact)
+                
             }
             picker.dismiss(animated: true, completion: nil)
         }
-
+        
         private func contactPicker(_ picker: CNContactPickerViewController, didDeselectContact contact: CNContact) {
             if let index = selectedContacts.firstIndex(of: contact) {
                 selectedContacts.remove(at: index)

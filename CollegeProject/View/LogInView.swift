@@ -14,7 +14,7 @@ struct LogInView: View {
     @State private var profilePicture: String = "person.circle"
     @State private var showAlert = false
     @State private var loginSuccess = false
-    var viewModel = login()
+    @State private var isLoggedIn = false
     
     var body: some View {
         ZStack{
@@ -47,29 +47,56 @@ struct LogInView: View {
                             
                             SecureFieldView(fieldData: $password, placeholderText: "Password...")
                             
-                            Button {
-                                viewModel.handleLogin(userName: userName, password: password)
-                            } label: {
-                                Text("Log in")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .bold()
-                                    .frame(width: 300, height: 50)
-                                    .background(.black)
-                                    .cornerRadius(30)
+                            Group{
+                                Button {
+                                    handleLogin()
+                                } label: {
+                                    Text("Log in")
+                                        .font(.title2)
+                                        .foregroundColor(.white)
+                                        .bold()
+                                        .frame(width: 300, height: 50)
+                                        .background(.black)
+                                        .cornerRadius(30)
+                                }
+                                NavigationLink(
+                                    destination: UserView(), // Navigate to HomeView when isLoggedIn is true
+                                    isActive: $isLoggedIn,
+                                    label: { EmptyView() }
+                                ).hidden()
                             }
-                            
+                            .frame(width: 350, height: 250)
+                            .background(.opacity(0.3))
+                            .cornerRadius(20)
+                            .padding(.bottom, 30)
                         }
-                        .frame(width: 350, height: 250)
-                        .background(.opacity(0.3))
-                        .cornerRadius(20)
-                        .padding(.bottom, 30)
                     }
                 }
             }
         }
     }
+    func handleLogin() {
+        // Fetch data from the API
+        LoginModel.fetchData { result in
+            switch result {
+            case .success(let users):
+                // Compare user input with fetched user data
+                if let matchedUser = users.first(where: { $0.userName == userName && $0.password == password }) {
+                    // Login successful
+                    print("Login successful for user: \(matchedUser.userName)")
+                    isLoggedIn = true
+                } else {
+                    // Login failed
+                    print("Invalid credentials")
+                    isLoggedIn = false
+                }
+            case .failure(let error):
+                print("Error fetching data: \(error)")
+            }
+        }
+    }
 }
+
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {

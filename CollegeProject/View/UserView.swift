@@ -15,6 +15,7 @@ struct UserView: View {
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
+    @State private var selectContact = false
     
     @ObservedObject var viewModel = SignInModel()
     
@@ -46,10 +47,6 @@ struct UserView: View {
                             }
                             .foregroundColor(.black)
                         })
-                        
-                        Button("submit"){
-                            viewModel.insertData(firstName: contact.givenName, lastName: contact.familyName, userName: contact.givenName, contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "", password: contact.givenName)
-                        }
                         
                         .padding(.vertical , 8)
                     }
@@ -92,7 +89,7 @@ struct UserView: View {
                         .frame(width: 100)
                         
                         NavigationLink{
-//                            SettingsView()
+                            Settings()
                         } label: {
                             VStack(alignment: .center){
                                 Image(systemName: "person.2.badge.gearshape.fill")

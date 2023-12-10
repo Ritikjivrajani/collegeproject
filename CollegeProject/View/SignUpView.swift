@@ -9,50 +9,6 @@ import SwiftUI
 import PhotosUI
 
 struct SignUpView: View {
-    
-    func sendDataToServer() {
-            guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else {
-                print("Invalid URL")
-                return
-            }
-
-            let parameters = [
-                "firstName": firstName,
-                "lastName": lastName,
-                "userName": username,
-                "contact": contactNumber,
-                "email": email,
-                "image": profile,
-                "password": password
-            ] as [String : Any]
-
-            guard let jsonData = try? JSONSerialization.data(withJSONObject: parameters) else {
-                print("Failed to serialize data")
-                return
-            }
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error.localizedDescription)")
-                    return
-                }
-
-                if let data = data {
-                    // Process the response data here
-                    // Example: parse JSON response if the server returns JSON data
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response: \(responseString)")
-                        // Handle the response accordingly in your app
-                    }
-                }
-            }.resume()
-        }
-    
     @State var firstName: String = ""
     @State var lastName: String = ""
     @State var username: String = ""
@@ -62,7 +18,7 @@ struct SignUpView: View {
     @State var email: String = ""
     @StateObject private var profile = ProfileViewModel()
     @State private var isImagePickerPresented = false
-
+    @State private var isSignedIn = false
     @ObservedObject var viewModel = SignInModel()
     
     var body: some View {
@@ -109,8 +65,6 @@ struct SignUpView: View {
                     
                     SecureFieldView(fieldData: $reTypePassword, placeholderText: "Re - Type Your Password...")
                     
-                    NavigationLink(destination: UserView(), label: {
-                        
                         Button(action: { viewModel.insertData(firstName: firstName, lastName: lastName, userName: username, contact: contactNumber, email: email, image: "", password: password) }, label: {
                             Text("Create account")
                                 .font(.title2)
@@ -120,7 +74,11 @@ struct SignUpView: View {
                                 .background(.black)
                                 .cornerRadius(30)
                         })
-                    })
+                    NavigationLink(
+                        destination: UserView(),
+                        isActive: $isSignedIn,
+                        label: { EmptyView() }
+                    ).hidden()
                 }
                 .frame(width: 350, height: 550)
                 .background(.opacity(0.3))

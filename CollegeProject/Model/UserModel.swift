@@ -76,28 +76,3 @@ struct LoginModel {
         }.resume()
     }
 }
-
-class login{
-    func handleLogin(userName: String, password: String) {
-        // Fetch data from the API
-        LoginModel.fetchData { result in
-            switch result {
-            case .success(let users):
-                // Compare user input with fetched user data
-                if let matchedUser = users.first(where: { $0.userName == userName && $0.password == password }) {
-                    // Login successful
-                    print("Login successful for user: \(matchedUser.userName)")
-                    //                   loginSuccess = true
-                    return
-                } else {
-                    // Login failed
-                    print("Invalid credentials")
-                    //                   loginSuccess = false
-                    return
-                }
-            case .failure(let error):
-                print("Error fetching data: \(error)")
-            }
-        }
-    }
-}
