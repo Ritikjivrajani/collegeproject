@@ -25,7 +25,6 @@ struct UserView: View {
                 //MARK: - UserDisplayView()
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
-                        
                         NavigationLink(destination: { ChatView() }, label: {
                             HStack (spacing: 16){
                                 Image(systemName: "person.fill")
@@ -47,6 +46,10 @@ struct UserView: View {
                             }
                             .foregroundColor(.black)
                         })
+                        
+                        Button("Submit") {
+                            SignInModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "123", password: "123456")
+                        }
                         
                         .padding(.vertical , 8)
                     }
@@ -116,6 +119,7 @@ struct UserView: View {
                 }
                 
                 ToolbarItemGroup(placement: .primaryAction) {
+                    
                     Button(action:{
                         isImagePickerPresented.toggle()
                     }) {
@@ -133,7 +137,8 @@ struct UserView: View {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
-                        ContactPicker(selectedContacts: $selectedContacts)
+//                        ContactPicker(selectedContacts: $selectedContacts)
+                        NewContactScreen()
                     }
                 }
             }

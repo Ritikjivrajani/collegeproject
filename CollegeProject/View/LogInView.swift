@@ -47,29 +47,30 @@ struct LogInView: View {
                             
                             SecureFieldView(fieldData: $password, placeholderText: "Password...")
                             
-                            Group{
-                                Button {
-                                    handleLogin()
-                                } label: {
-                                    Text("Log in")
-                                        .font(.title2)
-                                        .foregroundColor(.white)
-                                        .bold()
-                                        .frame(width: 300, height: 50)
-                                        .background(.black)
-                                        .cornerRadius(30)
-                                }
-                                NavigationLink(
-                                    destination: UserView(), // Navigate to HomeView when isLoggedIn is true
-                                    isActive: $isLoggedIn,
-                                    label: { EmptyView() }
-                                ).hidden()
+                            
+                            Button {
+                                handleLogin()
+                            } label: {
+                                Text("Log in")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                                    .bold()
+                                    .frame(width: 300, height: 50)
+                                    .background(.black)
+                                    .cornerRadius(30)
                             }
+                            
+                            NavigationLink(
+                                destination: UserView(), // Navigate to HomeView when isLoggedIn is true
+                                isActive: $isLoggedIn,
+                                label: { EmptyView() }
+                            ).hidden()
+                            
+                        }
                             .frame(width: 350, height: 250)
                             .background(.opacity(0.3))
                             .cornerRadius(20)
                             .padding(.bottom, 30)
-                        }
                     }
                 }
             }

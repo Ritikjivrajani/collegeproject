@@ -3,8 +3,6 @@
 //  CollegeProject
 //
 //  Created by Ritik Jivrajani on 26/11/23.
-//
-
 
 import SwiftUI
 import ContactsUI
