@@ -24,6 +24,7 @@
 		66A24BDF2B271666004284B9 /* NewContactScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A24BDE2B271666004284B9 /* NewContactScreen.swift */; };
 		66C7AEC22B063C81003AAEF0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7AEC12B063C81003AAEF0 /* LogInView.swift */; };
 		66D1F4562B0279D60045461C /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D1F4552B0279D60045461C /* SignUpView.swift */; };
+		66E378B72B3341EA003DE525 /* CheckContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E378B62B3341EA003DE525 /* CheckContact.swift */; };
 		66FA09AE2B05EBA0005776DA /* BackGroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA09AD2B05EBA0005776DA /* BackGroundView.swift */; };
 		B523F8142B134DC2000521EA /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523F8132B134DC2000521EA /* EditProfileView.swift */; };
 		B523F8162B1361D3000521EA /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523F8152B1361D3000521EA /* ContactView.swift */; };
@@ -58,6 +59,7 @@
 		66A24BDE2B271666004284B9 /* NewContactScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactScreen.swift; sourceTree = "<group>"; };
 		66C7AEC12B063C81003AAEF0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		66D1F4552B0279D60045461C /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		66E378B62B3341EA003DE525 /* CheckContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckContact.swift; sourceTree = "<group>"; };
 		66FA09AD2B05EBA0005776DA /* BackGroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundView.swift; sourceTree = "<group>"; };
 		B523F8132B134DC2000521EA /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		B523F8152B1361D3000521EA /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				664440A72B0DD1170024F1BE /* SettingsGroup */,
 				66A24BDA2B202F10004284B9 /* imagecheck.swift */,
 				66A24BDE2B271666004284B9 /* NewContactScreen.swift */,
+				66E378B62B3341EA003DE525 /* CheckContact.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				B5BC49932B14550600CBB6F1 /* TextAndSecureFieldView.swift in Sources */,
 				B5BC499D2B14641D00CBB6F1 /* MessageView.swift in Sources */,
 				6645D5852B15A4F6005B57C5 /* TermsAndConditions.swift in Sources */,
+				66E378B72B3341EA003DE525 /* CheckContact.swift in Sources */,
 				6609AEF32B0531100074D971 /* HomeView.swift in Sources */,
 				661C4A2C2B01F7050056C5B2 /* LaunchScreen.swift in Sources */,
 				B5BC49992B14635200CBB6F1 /* MessageModel.swift in Sources */,

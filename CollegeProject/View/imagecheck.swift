@@ -1,80 +1,89 @@
-//
-//  imagecheck.swift
-//  CollegeProject
-//
-//  Created by karishma on 06/12/23.
-//
-
 import SwiftUI
-import UIKit
+import PhotosUI
 
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var imageURL: URL?
-    @Environment(\.presentationMode) var presentationMode
-
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(parent: self)
-    }
-
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: ImagePicker
-
-        init(parent: ImagePicker) {
-            self.parent = parent
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let imageUrl = info[.imageURL] as? URL {
-                parent.imageURL = imageUrl
-            }
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct imagecheck: View {
-    @State private var selectedImageURL: URL?
-
+struct ContentView: View {
+    @State private var selectedImage: UIImage?
+    @State private var imagePath: String = "Image path will be displayed here"
+    @State private var isImagePickerPresented = false
+    
     var body: some View {
         VStack {
-            if let imageURL = selectedImageURL {
-                Image(systemName: "photo")
+            if let image = selectedImage {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)
-                    .onTapGesture {
-                        // Show or perform actions with the selected image URL
-                        print("New Selected Image URL: \(imageURL)")
-                    }
             } else {
-                Button("Select Image") {
-                    // Show image picker when the button is tapped
-                    isImagePickerShown.toggle()
-                }
+                Text("No image selected")
+            }
+            
+            Text(imagePath)
+            
+            Button("Select Image") {
+                self.isImagePickerPresented.toggle()
+            }
+            .sheet(isPresented: $isImagePickerPresented) {
+                PhotoPicker(selectedImage: self.$selectedImage, imagePath: self.$imagePath)
             }
         }
-        .sheet(isPresented: $isImagePickerShown) {
-            ImagePicker(imageURL: $selectedImageURL)
-        }
     }
-
-    @State private var isImagePickerShown = false
 }
 
-
-#Preview {
-    imagecheck()
+struct PhotoPicker: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+    @Binding var imagePath: String
+    
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        var parent: PhotoPicker
+        
+        init(_ parent: PhotoPicker) {
+            self.parent = parent
+        }
+        
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            if let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            self.parent.selectedImage = image
+                            self.parent.saveImageToDocumentsDirectory(image: image)
+                        }
+                    }
+                }
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+    
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
+        // Update the view controller if needed
+    }
+    
+    func saveImageToDocumentsDirectory(image: UIImage) {
+        if let data = image.jpegData(compressionQuality: 1.0) {
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let filename = "selectedImage.jpg"
+            let imageUrl = documentsDirectory.appendingPathComponent(filename)
+            
+            do {
+                try data.write(to: imageUrl)
+                self.imagePath = imageUrl.path
+            } catch {
+                print("Error writing image to documents directory: \(error)")
+                self.imagePath = "Image path not found"
+            }
+        }
+    }
 }

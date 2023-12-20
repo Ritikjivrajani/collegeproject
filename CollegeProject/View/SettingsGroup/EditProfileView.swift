@@ -12,29 +12,51 @@ struct EditProfileView: View {
     
     @StateObject private var viewModel = ProfileViewModel()
     @State private var isImagePickerPresented = false
+    @State private var selectedImage: UIImage?
+    @State private var imagePath: String = "Image path will be displayed here"
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Profile Picture")) {
-                    Image(uiImage: viewModel.profilePicture)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .clipShape(Circle())
-                        .onTapGesture {
-                            // Show image picker when profile picture is tapped
+                    
+                    if let image = selectedImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                        
+                        Button("Edit Picture") {
+                            // Show image picker when "Edit Picture" is tapped
                             isImagePickerPresented = true
                         }
-
-                    Button("Edit Picture") {
-                        // Show image picker when "Edit Picture" is tapped
-                        isImagePickerPresented = true
+                        
+                    } else {
+                        Image(uiImage: viewModel.profilePicture)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .onTapGesture {
+                                // Show image picker when profile picture is tapped
+                                isImagePickerPresented = true
+                            }
+                        
+                        Button("Edit Picture") {
+                            // Show image picker when "Edit Picture" is tapped
+                            isImagePickerPresented = true
+                        }
+                        .foregroundColor(.blue)
+                        .sheet(isPresented: $isImagePickerPresented) {
+                            PhotoPickerView(selectedImage: self.$selectedImage, imagePath: self.$imagePath)
+                        }
                     }
-                    .foregroundColor(.blue)
-                    .sheet(isPresented: $isImagePickerPresented) {
-                        PhotoPickerView(image: $viewModel.profilePicture)
+                    
+                    Button("Print url"){
+                        print("URL IS.....\(imagePath)")
                     }
+                    
                 }
 
                 Section(header: Text("Profile Information")) {

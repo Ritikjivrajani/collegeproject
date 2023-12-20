@@ -10,7 +10,9 @@ struct Description: Codable {
     let password: String
 }
 
-class SignInModel: ObservableObject {
+//MARK: - ForInsertData
+
+class InsertDataModel: ObservableObject {
     @Published var yourData: Description?
 
     func insertData(firstName: String, lastName: String, userName: String, contact: String, email: String, image: String, password: String) {
@@ -44,7 +46,9 @@ class SignInModel: ObservableObject {
     }
 }
 
-struct LoginModel {
+//MARK: - For FetchData
+
+struct FetchDataModel {
     static func fetchData(completion: @escaping (Result<[Description], Error>) -> Void) {
         guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Fetch_API.php") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
@@ -72,6 +76,42 @@ struct LoginModel {
                 }
             } catch {
                 completion(.failure(error))
+            }
+        }.resume()
+    }
+}
+
+struct ContactDescription: Codable{
+    let name: String
+    let contact: String
+}
+
+class contactfetch{
+    @Published var yourData: ContactDescription?
+    func fetchApi(name: String, contact: String){
+        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/access_phonebook_API.php") else {
+            print("Invalid URl...")
+            return
+        }
+        
+        let parameters: [String: Any] = [
+            "name" : name,
+            "phone_number" : contact
+        ]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            // Parse the data and update yourData property
+            if let data = data {
+                let decoder = JSONDecoder()
+                if let decodedData = try? decoder.decode(ContactDescription.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.yourData = decodedData
+                    }
+                }
             }
         }.resume()
     }

@@ -19,7 +19,10 @@ struct SignUpView: View {
     @StateObject private var profile = ProfileViewModel()
     @State private var isImagePickerPresented = false
     @State private var isSignedIn = false
-    @ObservedObject var viewModel = SignInModel()
+    @ObservedObject var viewModel = InsertDataModel()
+    @State private var selectedImage: UIImage?
+    @State private var imagePath: String = "Image path will be displayed here"
+    @StateObject private var imageModel = ProfileViewModel()
     
     var body: some View {
         ZStack{
@@ -33,18 +36,31 @@ struct SignUpView: View {
                         .padding(.horizontal,40)
                     Spacer()
                 }
-                    Image(uiImage: profile.profilePicture)
+                   
+                if let image = selectedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
+                    
+                } else {
+                    Image(uiImage: imageModel.profilePicture)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 100, height: 100)
                         .clipShape(Circle())
                         .onTapGesture {
+                            // Show image picker when profile picture is tapped
                             isImagePickerPresented = true
                         }
-
-                .sheet(isPresented: $isImagePickerPresented) {
-                    PhotoPickerView(image: $profile.profilePicture)
+                    
+                    .foregroundColor(.blue)
+                    .sheet(isPresented: $isImagePickerPresented) {
+                        PhotoPickerView(selectedImage: self.$selectedImage, imagePath: self.$imagePath)
+                    }
                 }
+                
                 
                 Text("Enter Your Details")
                     .font(.title2)
@@ -65,7 +81,9 @@ struct SignUpView: View {
                     
                     SecureFieldView(fieldData: $reTypePassword, placeholderText: "Re - Type Your Password...")
                     
-                        Button(action: { viewModel.insertData(firstName: firstName, lastName: lastName, userName: username, contact: contactNumber, email: email, image: "", password: password) }, label: {
+                    Button(action: { viewModel.insertData(firstName: firstName, lastName: lastName, userName: username, contact: contactNumber, email: email, image: imagePath, password: password)
+                        
+                    print("Registered successfully...")}, label: {
                             Text("Create account")
                                 .font(.title2)
                                 .foregroundColor(.white)

@@ -78,7 +78,7 @@ struct LogInView: View {
     }
     func handleLogin() {
         // Fetch data from the API
-        LoginModel.fetchData { result in
+        FetchDataModel.fetchData { result in
             switch result {
             case .success(let users):
                 // Compare user input with fetched user data

@@ -21,6 +21,10 @@ struct NewContactScreen: View {
                                 .foregroundStyle(.blue)
                                 .font(.title3)
                         }
+                        
+                        Button("Send"){
+                            contactfetch().fetchApi(name: "Karishma", contact: "123456789")
+                        }
                     }
                     
                     Section{
@@ -45,13 +49,13 @@ struct NewContactScreen: View {
             }
             .navigationTitle("New Chats")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar{
-                ToolbarItem{
-                    Button("✖️"){
-                        
-                    }
-                }
-            }
+//            .toolbar{
+//                ToolbarItem{
+//                    Button("✖️"){
+//                        
+//                    }
+//                }
+//            }
         }
     }
 }

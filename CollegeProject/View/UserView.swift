@@ -9,6 +9,13 @@ import SwiftUI
 import ContactsUI
 import Contacts
 
+struct ContactNumbersResponse: Codable {
+    let success: Bool
+    let message: String
+    let data: [String]
+}
+
+
 struct UserView: View {
     
     @State private var selectedContacts: [CNContact] = []
@@ -16,8 +23,9 @@ struct UserView: View {
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
     @State private var selectContact = false
+    @State private var fetchedContactNumbers: [String] = []
     
-    @ObservedObject var viewModel = SignInModel()
+    @ObservedObject var viewModel = InsertDataModel()
     
     var body: some View {
         NavigationView{
@@ -48,15 +56,20 @@ struct UserView: View {
                         })
                         
                         Button("Submit") {
-                            SignInModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "123", password: "123456")
+                            InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "123", password: "123456")
                         }
                         
+                        Button("Submit") {
+                            compareWithPhoneBook(contact: contact)
+                        }
+                       
                         .padding(.vertical , 8)
                     }
                     .onDelete(perform: deleteItems)
                 }
                 .listStyle(.grouped)
                 .scrollContentBackground(.hidden)
+
                 
                 //MARK: - BottomView()
                 VStack{
@@ -137,14 +150,54 @@ struct UserView: View {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
-//                        ContactPicker(selectedContacts: $selectedContacts)
-                        NewContactScreen()
+                        ContactPicker(selectedContacts: $selectedContacts)
+//                        NewContactScreen()
                     }
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
     }
+    
+    
+    func fetchContactNumbersFromAPI() {
+            guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/select_contact_API.php") else {
+                print("Invalid API endpoint")
+                return
+            }
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data else {
+                    print("No data received: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                do {
+                    let decodedData = try JSONDecoder().decode(ContactNumbersResponse.self, from: data)
+                    fetchedContactNumbers = decodedData.data
+                    
+                    // Compare fetched contact numbers with user's contacts
+                    compareWithPhoneBook()
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }.resume()
+        }
+
+    
+    func compareWithPhoneBook() {
+            for fetchedNumber in fetchedContactNumbers {
+                for contact in selectedContacts {
+                    if let phoneNumber = contact.phoneNumbers.first?.value.stringValue {
+                        // Check if fetched number matches any phone number in user's contacts
+                        if phoneNumber == fetchedNumber {
+                            print("Phone number \(phoneNumber) found in the user's phone book.")
+                            // Perform any action or alert the user as needed
+                        }
+                    }
+                }
+            }
+        }
     
     func deleteItems(indexSet: IndexSet){
         selectedContacts.remove(atOffsets: indexSet)
