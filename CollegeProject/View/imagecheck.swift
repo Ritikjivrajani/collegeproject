@@ -87,3 +87,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         }
     }
 }
+
+#Preview{
+    ContentView()
+}

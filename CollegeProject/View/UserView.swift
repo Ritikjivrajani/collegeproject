@@ -17,7 +17,8 @@ struct ContactNumbersResponse: Codable {
 
 
 struct UserView: View {
-    
+    @State private var userContactNumbers: [String] = []
+    @State private var apiContactNumbers: [String] = []
     @State private var selectedContacts: [CNContact] = []
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
@@ -59,10 +60,13 @@ struct UserView: View {
                             InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "123", password: "123456")
                         }
                         
-                        Button("Submit") {
-                            compareWithPhoneBook(contact: contact)
-                        }
-                       
+                        
+//                        Button("send"){
+//                            api().fetchConatct { DBContact in
+//                                
+//                            }
+//                        }
+                        
                         .padding(.vertical , 8)
                     }
                     .onDelete(perform: deleteItems)
@@ -151,53 +155,12 @@ struct UserView: View {
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
                         ContactPicker(selectedContacts: $selectedContacts)
-//                        NewContactScreen()
                     }
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
     }
-    
-    
-    func fetchContactNumbersFromAPI() {
-            guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/select_contact_API.php") else {
-                print("Invalid API endpoint")
-                return
-            }
-
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data else {
-                    print("No data received: \(error?.localizedDescription ?? "Unknown error")")
-                    return
-                }
-
-                do {
-                    let decodedData = try JSONDecoder().decode(ContactNumbersResponse.self, from: data)
-                    fetchedContactNumbers = decodedData.data
-                    
-                    // Compare fetched contact numbers with user's contacts
-                    compareWithPhoneBook()
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }.resume()
-        }
-
-    
-    func compareWithPhoneBook() {
-            for fetchedNumber in fetchedContactNumbers {
-                for contact in selectedContacts {
-                    if let phoneNumber = contact.phoneNumbers.first?.value.stringValue {
-                        // Check if fetched number matches any phone number in user's contacts
-                        if phoneNumber == fetchedNumber {
-                            print("Phone number \(phoneNumber) found in the user's phone book.")
-                            // Perform any action or alert the user as needed
-                        }
-                    }
-                }
-            }
-        }
     
     func deleteItems(indexSet: IndexSet){
         selectedContacts.remove(atOffsets: indexSet)

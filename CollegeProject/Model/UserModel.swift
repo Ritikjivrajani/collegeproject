@@ -1,4 +1,5 @@
 import Foundation
+import Contacts
 
 struct Description: Codable {
     let firstName: String
@@ -14,7 +15,7 @@ struct Description: Codable {
 
 class InsertDataModel: ObservableObject {
     @Published var yourData: Description?
-
+    
     func insertData(firstName: String, lastName: String, userName: String, contact: String, email: String, image: String, password: String) {
         guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else { return }
         let parameters: [String: Any] = [
@@ -30,17 +31,17 @@ class InsertDataModel: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
-                // Parse the data and update yourData property
-                if let data = data {
-                    let decoder = JSONDecoder()
-                    if let decodedData = try? decoder.decode(Description.self, from: data) {
-                        DispatchQueue.main.async {
-                            self.yourData = decodedData
-                        }
+            // Parse the data and update yourData property
+            if let data = data {
+                let decoder = JSONDecoder()
+                if let decodedData = try? decoder.decode(Description.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.yourData = decodedData
                     }
                 }
+            }
             
         }.resume()
     }
@@ -86,33 +87,68 @@ struct ContactDescription: Codable{
     let contact: String
 }
 
-class contactfetch{
-    @Published var yourData: ContactDescription?
-    func fetchApi(name: String, contact: String){
-        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/access_phonebook_API.php") else {
-            print("Invalid URl...")
+class contactAPI{
+    func sendContactsToAPI(contact: [CNContact]) {
+        // Contacts data to be sent
+        let contactsData: [String: Any] = [
+            "contacts": [
+                ["name": "1","phone_number": contact.count]
+            ]
+        ]
+        
+        // Convert the contacts data to JSON
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: contactsData) else {
             return
         }
         
-        let parameters: [String: Any] = [
-            "name" : name,
-            "phone_number" : contact
-        ]
+        // API endpoint URL
+        let apiURL = URL(string: "https://flashchatcollageproject.000webhostapp.com/access_phonebook_API.php")!
         
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: apiURL)
         request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
-            // Parse the data and update yourData property
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                // Handle error
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                print("Invalid response")
+                // Handle invalid response
+                return
+            }
+            
             if let data = data {
-                let decoder = JSONDecoder()
-                if let decodedData = try? decoder.decode(ContactDescription.self, from: data) {
-                    DispatchQueue.main.async {
-                        self.yourData = decodedData
-                    }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print("Response: \(json)")
+                    // Handle the response from the API
+                } catch {
+                    print("Error parsing JSON: \(error.localizedDescription)")
+                    // Handle JSON parsing error
                 }
             }
+        }.resume()
+    }
+}
+
+
+struct contactFetch: Decodable{
+    let data: [String]
+}
+
+class api{
+    func fetchConatct(completion: @escaping (Result<contactFetch, Error>) -> Void){
+        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/select_contact_API.php") else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let decodedData = try! JSONDecoder().decode(contactFetch.self, from: data!)
+            completion(.success(decodedData))
         }.resume()
     }
 }

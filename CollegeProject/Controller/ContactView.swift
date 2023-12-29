@@ -34,6 +34,25 @@ struct ContactPicker: UIViewControllerRepresentable {
         }
 
         func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+            
+//            api().fetchConatct { DBContact in
+//                switch DBContact{
+//                case .success(let ):
+//                    for dbContact in dbContacts {
+//                        let dbPhoneNumber = dbContact.phoneNumber // Assuming phoneNumber is the property that stores the phone number in each dbContact
+//                        
+//                        // Compare each DB contact's phone number with contact.phoneNumbers
+//                        for contactPhoneNumber in contact.phoneNumbers {
+//                            if dbPhoneNumber == contactPhoneNumber {
+//                                // Do something when a phone number matches between DB contact and user's contact
+//                                print("Phone number \(dbPhoneNumber) found in user's contacts.")
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+                
+            
             // Check if the selected contact already exists in the array
             if !selectedContacts.contains(where: { $0.identifier == contact.identifier }) {
                 // If the contact is not already in the array, add it
