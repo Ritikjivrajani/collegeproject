@@ -15,7 +15,6 @@ struct ContactNumbersResponse: Codable {
     let data: [String]
 }
 
-
 struct UserView: View {
     @State private var userContactNumbers: [String] = []
     @State private var apiContactNumbers: [String] = []
@@ -59,14 +58,6 @@ struct UserView: View {
                         Button("Submit") {
                             InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "123", password: "123456")
                         }
-                        
-                        
-//                        Button("send"){
-//                            api().fetchConatct { DBContact in
-//                                
-//                            }
-//                        }
-                        
                         .padding(.vertical , 8)
                     }
                     .onDelete(perform: deleteItems)
@@ -154,7 +145,7 @@ struct UserView: View {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
-                        ContactPicker(selectedContacts: $selectedContacts)
+                        NewContactScreen()
                     }
                 }
             }

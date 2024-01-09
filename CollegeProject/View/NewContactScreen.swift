@@ -10,55 +10,15 @@ import Contacts
 import ContactsUI
 
 struct NewContactScreen: View {
-    struct ContactPicker: UIViewControllerRepresentable {
-        @Binding var selectedContacts: [CNContact]
-
-        func makeUIViewController(context: Context) -> CNContactPickerViewController {
-            let contactPicker = CNContactPickerViewController()
-            contactPicker.delegate = context.coordinator
-            contactPicker.predicateForSelectionOfContact = NSPredicate(value: true)
-            contactPicker.predicateForSelectionOfProperty = NSPredicate(value: true)
-            return contactPicker
-        }
-
-        func updateUIViewController(_ uiViewController: CNContactPickerViewController, context: Context) {
-            // Update the view controller if needed
-        }
-
-        func makeCoordinator() -> Coordinator {
-            return Coordinator(selectedContacts: $selectedContacts)
-        }
-
-        class Coordinator: NSObject, CNContactPickerDelegate {
-            @Binding var selectedContacts: [CNContact]
-
-            init(selectedContacts: Binding<[CNContact]>) {
-                _selectedContacts = selectedContacts
-            }
-
-            func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-                // Check if the selected contact already exists in the array
-                if !selectedContacts.contains(where: { $0.identifier == contact.identifier }) {
-                    // If the contact is not already in the array, add it
-                    selectedContacts.append(contact)
-                    
-                }
-                picker.dismiss(animated: true, completion: nil)
-            }
-            
-            private func contactPicker(_ picker: CNContactPickerViewController, didDeselectContact contact: CNContact) {
-                if let index = selectedContacts.firstIndex(of: contact) {
-                    selectedContacts.remove(at: index)
-                }
-            }
-
-            func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
-                // Handle cancellation
-            }
-        }
-    }
-
+    
     @State private var searchText = ""
+    @State var displayContact = ""
+    @State private var contacts: [model] = []
+    @State private var selectedConatct: [CNContact] = []
+    @State var picker = ""
+    
+    var pickerData = ["user1", "user2", "user3", "user4", "user5"]
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -74,34 +34,76 @@ struct NewContactScreen: View {
                     }
                     
                     Section{
-                        ForEach(1...10, id: \.self){ contact in
-                            HStack{
-                                Image(systemName: "person.circle")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                
-                                VStack(alignment: .leading){
-                                    Text("contact \(contact)")
-                                        .font(.system(size: 20))
-                                        .fontWeight(.heavy)
-                                    Text("caption")
-                                        .foregroundStyle(.gray)
-                                        .font(.headline)
+                            Picker("Pick Contacts", selection: $picker) {
+                                ForEach(pickerData, id: \.self){ item in
+                                        Text(item)
+                                }
+                            }
+                            .pickerStyle(.navigationLink)
+                    }
+                }
+                .navigationTitle("New Chats")
+                .navigationBarTitleDisplayMode(.inline)
+//                .onAppear(perform: fetchContacts)
+            }
+        }
+    }
+    
+//    func fetchContacts() {
+//        forContacts().fetchAllContacts { item in
+//            // Assuming 'item' is of type Contact
+//            contacts.append(item)
+//        }
+//    }
+    
+}
+
+struct model: Hashable, Codable{
+    var name: String
+    var contact: String
+}
+
+class forContacts: ObservableObject{
+    func fetchAllContacts(completion: @escaping(model) -> ()) {
+        
+        let store = CNContactStore()
+        
+        let keys = [CNContactGivenNameKey,CNContactPhoneNumbersKey] as [CNKeyDescriptor]
+        
+        let fetchRequest = CNContactFetchRequest(keysToFetch: keys)
+        
+        do{
+            try store.enumerateContacts(with: fetchRequest) { contact, result in
+                
+                api().fetchConatct() { DBContact in
+                    for number in contact.phoneNumbers{
+                        switch number.label {
+                        case CNLabelPhoneNumberMobile:
+                            for dbcontact in DBContact.data{
+                                if dbcontact == number.value.stringValue{
+                                    completion(model(name: contact.givenName, contact: number.value.stringValue))
+                                }
+                            }
+                            
+                        case CNLabelPhoneNumberMain:
+                            for dbcontact in DBContact.data{
+                                if dbcontact == number.value.stringValue{
+                                    completion(model(name: contact.givenName, contact: number.value.stringValue))
+                                }
+                            }
+                            
+                        default:
+                            for dbcontact in DBContact.data{
+                                if dbcontact == number.value.stringValue{
+                                    completion(model(name: contact.givenName, contact: number.value.stringValue))
                                 }
                             }
                         }
                     }
                 }
             }
-            .navigationTitle("New Chats")
-            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar{
-//                ToolbarItem{
-//                    Button("✖️"){
-//                        
-//                    }
-//                }
-//            }
+        } catch {
+            print("error occured")
         }
     }
 }
@@ -109,3 +111,6 @@ struct NewContactScreen: View {
 #Preview {
     NewContactScreen()
 }
+
+
+//new contact screen 

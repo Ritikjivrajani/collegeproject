@@ -415,10 +415,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CollegeProject/Preview Content\"";
-				DEVELOPMENT_TEAM = D88PAYMK84;
+				DEVELOPMENT_TEAM = C4Q385RKVD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CollegeProject/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera to capture photo";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Reason for accessing contacts";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to select a profile picture.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -433,7 +434,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yobored.app.Yobored;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panchasarakarishma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -449,10 +450,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CollegeProject/Preview Content\"";
-				DEVELOPMENT_TEAM = D88PAYMK84;
+				DEVELOPMENT_TEAM = C4Q385RKVD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CollegeProject/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera to capture photo";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Reason for accessing contacts";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to select a profile picture.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -467,7 +469,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yobored.app.Yobored;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panchasarakarishma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

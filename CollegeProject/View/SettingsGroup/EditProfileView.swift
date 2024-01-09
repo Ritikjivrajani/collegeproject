@@ -14,6 +14,8 @@ struct EditProfileView: View {
     @State private var isImagePickerPresented = false
     @State private var selectedImage: UIImage?
     @State private var imagePath: String = "Image path will be displayed here"
+    
+    
 
     var body: some View {
         NavigationView {
@@ -68,10 +70,13 @@ struct EditProfileView: View {
                 }
             }
         }
+        .onAppear {
+            viewModel.fetchProfileData()
+        }
         .navigationTitle("Edit Profile")
         .navigationBarItems(trailing: Button("Save") {
             // Implement logic to save changes
-            viewModel.saveProfile()
+//            $viewModel.saveProfile
         })
     }
 }
