@@ -64,6 +64,21 @@
                   endingLineNumber = "56"
                   offsetFromSymbolStart = "304">
                </Location>
+               <Location
+                  uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - c8a5cfe3d63f7569"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static CollegeProject.FetchDataModel.fetchData(completion: (Swift.Result&lt;Swift.Array&lt;CollegeProject.Description&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "CollegeProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ritikjivrajani/Downloads/CollegeProject%204/CollegeProject/Model/UserModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "760">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,6 +141,21 @@
                   startingLineNumber = "60"
                   endingLineNumber = "60"
                   offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3 - 935d74ae1e174066"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static CollegeProject.FetchDataModel.fetchData(completion: (Swift.Result&lt;Swift.Array&lt;CollegeProject.Description&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "CollegeProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ritikjivrajani/Downloads/CollegeProject%204/CollegeProject/Model/UserModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "184">
                </Location>
             </Locations>
          </BreakpointContent>
