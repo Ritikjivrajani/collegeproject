@@ -34,31 +34,38 @@ struct NewContactScreen: View {
                     }
                     
                     Section{
-                            Picker("Pick Contacts", selection: $picker) {
-                                ForEach(pickerData, id: \.self){ item in
-                                        Text(item)
+                        ForEach(contacts, id: \.self){ contact in
+                            HStack{
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                
+                                VStack(alignment: .leading){
+                                    Text("\(contact.name)")
+                                        .font(.system(size: 20))
+                                        .fontWeight(.heavy)
+                                    Text("caption")
+                                        .foregroundStyle(.gray)
+                                        .font(.headline)
                                 }
                             }
-                            .pickerStyle(.navigationLink)
+                            .navigationTitle("New Chats")
+                            .navigationBarTitleDisplayMode(.inline)
+                            .onAppear(perform: fetchContacts)
+                        }
                     }
                 }
-                .navigationTitle("New Chats")
-                .navigationBarTitleDisplayMode(.inline)
-//                .onAppear(perform: fetchContacts)
             }
         }
+    }     
+    func fetchContacts() {
+        forContacts().fetchAllContacts { item in
+            contacts.append(item)
+        }
     }
-    
-//    func fetchContacts() {
-//        forContacts().fetchAllContacts { item in
-//            // Assuming 'item' is of type Contact
-//            contacts.append(item)
-//        }
-//    }
-    
 }
 
-struct model: Hashable, Codable{
+struct model: Codable, Hashable{
     var name: String
     var contact: String
 }
@@ -80,8 +87,11 @@ class forContacts: ObservableObject{
                         switch number.label {
                         case CNLabelPhoneNumberMobile:
                             for dbcontact in DBContact.data{
+                                
                                 if dbcontact == number.value.stringValue{
+                                    
                                     completion(model(name: contact.givenName, contact: number.value.stringValue))
+                                    
                                 }
                             }
                             
@@ -111,6 +121,3 @@ class forContacts: ObservableObject{
 #Preview {
     NewContactScreen()
 }
-
-
-//new contact screen 

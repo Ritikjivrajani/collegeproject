@@ -20,14 +20,6 @@ struct BackGroundView: View {
                 .offset(x: 200, y: -75)
                 .foregroundColor(Color("newColor"))
         }
-        
-//        NavigationView{
-//            ZStack{
-//                Image("BackImage")
-//                    .resizable()
-//                    .ignoresSafeArea()
-//            }
-//        }
     }
 }
 

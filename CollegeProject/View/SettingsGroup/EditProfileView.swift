@@ -14,8 +14,7 @@ struct EditProfileView: View {
     @State private var isImagePickerPresented = false
     @State private var selectedImage: UIImage?
     @State private var imagePath: String = "Image path will be displayed here"
-    
-    
+    @State private var isLoggedIn = false
 
     var body: some View {
         NavigationView {
@@ -30,7 +29,6 @@ struct EditProfileView: View {
                             .clipShape(Circle())
                         
                         Button("Edit Picture") {
-                            // Show image picker when "Edit Picture" is tapped
                             isImagePickerPresented = true
                         }
                         
@@ -41,12 +39,10 @@ struct EditProfileView: View {
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
                             .onTapGesture {
-                                // Show image picker when profile picture is tapped
                                 isImagePickerPresented = true
                             }
                         
                         Button("Edit Picture") {
-                            // Show image picker when "Edit Picture" is tapped
                             isImagePickerPresented = true
                         }
                         .foregroundColor(.blue)
@@ -71,12 +67,10 @@ struct EditProfileView: View {
             }
         }
         .onAppear {
-            viewModel.fetchProfileData()
         }
         .navigationTitle("Edit Profile")
         .navigationBarItems(trailing: Button("Save") {
-            // Implement logic to save changes
-//            $viewModel.saveProfile
+            
         })
     }
 }

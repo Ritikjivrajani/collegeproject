@@ -33,7 +33,6 @@ class InsertDataModel: ObservableObject {
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            // Parse the data and update yourData property
             if let data = data {
                 let decoder = JSONDecoder()
                 if let decodedData = try? decoder.decode(Description.self, from: data) {
@@ -156,44 +155,20 @@ class api{
     }
 }
 
-struct UserData: Codable {
-    let id: String
-    let firstname: String
-    let lastname: String
-    let username: String
-    let email: String
-    let contact: String
-    let image: String
-    let password: String
+struct afterLoginData: Codable{
+    var firstname: String
+    var lastname: String
+    var email: String
+    var image: String
 }
 
-class FetchData: ObservableObject {
-    @Published var userData = [UserData]()
-    
-    init() {
-        fetchData()
-    }
-    
-    func fetchData() {
-        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Fetch_API.php") else {
-            return
-        }
+class callapi{
+    func afterlogin(){
+        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Fetch_API.php") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let decodedData = try JSONDecoder().decode([UserData].self, from: data)
-                DispatchQueue.main.async {
-                    self.userData = decodedData
-                }
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let decodedData = try! JSONDecoder().decode([afterLoginData].self, from: data!)
+            print(decodedData)
         }.resume()
     }
 }
-
-

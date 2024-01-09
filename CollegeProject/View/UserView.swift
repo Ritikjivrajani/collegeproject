@@ -9,15 +9,8 @@ import SwiftUI
 import ContactsUI
 import Contacts
 
-struct ContactNumbersResponse: Codable {
-    let success: Bool
-    let message: String
-    let data: [String]
-}
-
 struct UserView: View {
-    @State private var userContactNumbers: [String] = []
-    @State private var apiContactNumbers: [String] = []
+    
     @State private var selectedContacts: [CNContact] = []
     @State private var isContactPickerPresented = false
     @State private var searchText = ""

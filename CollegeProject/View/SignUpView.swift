@@ -9,6 +9,8 @@ import SwiftUI
 import PhotosUI
 
 struct SignUpView: View {
+    
+    // TextField properties
     @State var firstName: String = ""
     @State var lastName: String = ""
     @State var username: String = ""
@@ -16,7 +18,8 @@ struct SignUpView: View {
     @State var password: String = ""
     @State var reTypePassword: String = ""
     @State var email: String = ""
-    @StateObject private var profile = ProfileViewModel()
+    
+    // Another properties
     @State private var isImagePickerPresented = false
     @State private var isSignedIn = false
     @ObservedObject var viewModel = InsertDataModel()
@@ -28,7 +31,6 @@ struct SignUpView: View {
         ScrollView{
             ZStack{
                 BackGroundView()
-                
                 
                 VStack{
                     HStack{

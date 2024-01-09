@@ -46,3 +46,7 @@ struct Privacy: View {
         .navigationTitle("Privacy")
     }
 }
+
+#Preview {
+    Privacy()
+}
