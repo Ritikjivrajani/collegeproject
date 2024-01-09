@@ -8,113 +8,116 @@
 import SwiftUI
 
 struct LogInView: View {
-    
     @ObservedObject var fetchData = FetchData()
-    
-    @State var success = false
-    @State var failed = true
-    @State var userName: String = ""
-    @State var password: String = ""
+    @State private var userName: String = ""
+    @State private var password: String = ""
     @State private var profilePicture: String = "person.circle"
     @State private var showAlert = false
     @State private var loginSuccess = false
     @State private var isLoggedIn = false
-    @State var displayUser = ""
-    @State var alerTitle = ""
-    
+    @State private var displayUser = ""
+    @State private var alerTitle = ""
+    @State private var emojiRotationAngle: Double = 0
+
     var body: some View {
-        ZStack{
+        ZStack {
             BackGroundView()
-                
-                Group{
-                    VStack{
-                        HStack{
-                            Text("Log in")
-                                .font(.largeTitle)
-                                .bold()
-                                .padding(.horizontal,40)
-                                .padding(.bottom, 60)
-                            Spacer()
-                        }
-                        
-                        VStack{
-                            Image(systemName: profilePicture)
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                            
-                            Text("Enter Your Details")
-                                .font(.title2)
-                        }
-                        .padding(.bottom, 100)
-                        
-                        Text(alerTitle)
-                        
-                        Group{
-                            VStack(alignment: .leading, spacing: 20){
-                                TextFieldView(fieldData: $userName, placeholderText: "User Name...")
-                                
-                                SecureFieldView(fieldData: $password, placeholderText: "Password...")
-                                
-                                
-                                Button {
-                                    
-                                    handleLogin()
-                                    
-                                } label: {
-                                    Text("Log in")
-                                        .font(.title2)
-                                        .foregroundColor(.white)
-                                        .bold()
-                                        .frame(width: 300, height: 50)
-                                        .background(.black)
-                                        .cornerRadius(30)
-                                }
-                                
-                                
-                                
-                                NavigationLink(
-                                    destination: UserView(), // Navigate to HomeView when isLoggedIn is true
-                                    isActive: $isLoggedIn,
-                                    label: { EmptyView() }
-                                ).hidden()
-                                
-                            }
-                            .frame(width: 350, height: 250)
-                            .background(.opacity(0.3))
-                            .cornerRadius(20)
-                            .padding(.bottom, 30)
-                        }
-                    }
-                    .alert(isPresented: $showAlert) {
-                        getAlert()
-                    }
+
+            VStack {
+                HStack {
+                    Text("Log in")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 60)
+                    Spacer()
                 }
-            
-        }
-    }
-    
-    func getAlert() -> Alert{
-        return Alert(title: Text(alerTitle))
-    }
-    
-    func textIsAppropriate(textBoxValue: String){
-        if textBoxValue != ""{
-            alerTitle = "please fill the blanks!!!"
-        }
-        else{
-            if failed == true{
-                alerTitle = "Invalid UserName and Password!!!"
+
+                VStack {
+                    AnimatedEmojiView(isPasswordEntered: !password.isEmpty, isUsernameEntered: !userName.isEmpty, rotationAngle: $emojiRotationAngle)
+                        .frame(width: 100, height: 100)
+
+                    Text("Enter Your Details")
+                        .font(.title2)
+                }
+                .padding(.bottom, 100)
+
+                Text(alerTitle)
+
+                VStack(alignment: .leading, spacing: 20) {
+                    TextFieldView(fieldData: $userName, placeholderText: "User Name...")
+                        .onChange(of: userName) { newValue in
+                            // Set isUsernameEntered based on your logic
+                            // Example: isUsernameEntered = !newValue.isEmpty
+                            withAnimation {
+                                emojiRotationAngle = newValue.isEmpty ? 15 : -15
+                            }
+                        }
+
+                    SecureFieldView(fieldData: $password, placeholderText: "Password...")
+                        .onChange(of: password) { newValue in
+                            // Set isPasswordEntered based on your logic
+                            // Example: isPasswordEntered = !newValue.isEmpty
+                            withAnimation {
+                                emojiRotationAngle = newValue.isEmpty ? 15 : 0
+                            }
+                        }
+
+                    Button {
+                        handleLogin()
+                    } label: {
+                        Text("Log in")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .bold()
+                            .frame(width: 300, height: 50)
+                            .background(.black)
+                            .cornerRadius(30)
+                    }
+
+                    NavigationLink(
+                        destination: UserView(),
+                        isActive: $isLoggedIn,
+                        label: { EmptyView() }
+                    )
+                    .opacity(0)
+                    .disabled(true)
+                }
+                .frame(width: 350, height: 250)
+                .background(.opacity(0.3))
+                .cornerRadius(20)
+                .padding(.bottom, 30)
+            }
+            .alert(isPresented: $showAlert) {
+                getAlert()
             }
         }
     }
-    
-    struct forHandleLogin{
-        var isSuccess: Bool
-        var isFailed: Bool
-        var matchedUser: String
-        var image: String
+
+    struct AnimatedEmojiView: View {
+        var isPasswordEntered: Bool
+        var isUsernameEntered: Bool
+        @Binding var rotationAngle: Double
+
+        var body: some View {
+            Image(systemName: "😊")
+                .resizable()
+                .scaledToFit()
+                .font(Font.title.weight(.ultraLight))
+                .frame(width: 100, height: 100)
+                .rotationEffect(.degrees(rotationAngle))
+                .animation(.easeInOut(duration: 0.5), value: isPasswordEntered || isUsernameEntered)
+                .onAppear {
+                    // Start with the emoji looking down
+                    rotationAngle = 15
+                }
+        }
     }
-    
+
+    func getAlert() -> Alert {
+        return Alert(title: Text(alerTitle))
+    }
+
     func handleLogin() {
         // Fetch data from the API
         FetchDataModel.fetchData { result in
