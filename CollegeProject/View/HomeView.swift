@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         NavigationView{
+<<<<<<< HEAD
             ZStack{
                 BackGroundView()
                 VStack{
@@ -31,33 +32,57 @@ struct HomeView: View {
                             
                             NavigationLink(destination: SignUpView(), label: {
                                 Text("Sign Up")
+=======
+                ZStack{
+                    BackGroundView()
+                    VStack{
+                        Group{
+                            VStack(alignment: .leading){
+                                Text("Welcome to")
+>>>>>>> 2939e54b57d802fd081efb4dbab01a96d7f69098
                                     .font(.title2)
+                                
+                                Text("Flash chat")
+                                    .font(.largeTitle)
                                     .bold()
-                                    .foregroundColor(.white)
-                                    .frame(width: 300, height: 50)
-                                    .background(.black)
-                                    .cornerRadius(30)
-                            })
-                            
-                            NavigationLink(destination: LogInView(), label: {
-                                Text("Log In")
-                                    .font(.title2)
-                                    .bold()
-                                    .foregroundColor(.white)
-                                    .frame(width: 300, height: 50)
-                                    .background(.black)
-                                    .cornerRadius(30)
-                            })
-                            
+                            }
+                            .offset(x: -70, y: -30)
+                            .padding(.bottom, 100)
                         }
-                        .frame(width: 325, height: 200)
-                        .background(.opacity(0.3))
-                        .cornerRadius(20)
-                        .offset(y: 80)
+                        
+                        Group{
+                            VStack(spacing: 20){
+                                
+                                NavigationLink(destination: SignUpView(), label: {
+                                    Text("Sign Up")
+                                        .font(.title2)
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .frame(width: 300, height: 50)
+                                        .background(.black)
+                                        .cornerRadius(30)
+                                })
+                                
+                                NavigationLink(destination: LogInView(), label: {
+                                    Text("Log In")
+                                        .font(.title2)
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .frame(width: 300, height: 50)
+                                        .background(.black)
+                                        .cornerRadius(30)
+                                })
+                                
+                            }
+                            .frame(width: 325, height: 200)
+                            .background(.opacity(0.3))
+                            .cornerRadius(20)
+                            .offset(y: 80)
+                        }
                     }
                 }
             }
-        }
+        
     }
 }
 
