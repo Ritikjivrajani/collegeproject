@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
             endingLineNumber = "56"
-            landmarkName = "fetchData(completion:)"
-            landmarkType = "7">
+            landmarkName = "UpdateModel"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - 128496d62ac25e2a"
@@ -94,7 +94,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "fetchData(completion:)"
+            landmarkName = "updateData(firstName:contact:email:image:)"
             landmarkType = "7">
             <Locations>
                <Location
