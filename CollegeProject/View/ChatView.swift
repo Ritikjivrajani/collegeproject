@@ -29,7 +29,6 @@ struct ChatView: View {
                 }
                 .ignoresSafeArea()
                 
-                // Display Messages
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 10) {
                         ForEach(messages) { message in
@@ -39,7 +38,6 @@ struct ChatView: View {
                 }
                 .padding()
                 
-                // Input TextField and Send Button
                 HStack {
                     TextField("Type a message...", text: $newMessage, onEditingChanged: { editing in
                         isKeyboardHidden = !editing

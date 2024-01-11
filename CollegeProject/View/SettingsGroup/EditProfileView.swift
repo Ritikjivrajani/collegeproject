@@ -51,22 +51,31 @@ struct EditProfileView: View {
                         }
                     }
                     
-                    Button("Print url"){
-                        print("URL IS.....\(imagePath)")
-                    }
-                    
                 }
 
                 Section(header: Text("Profile Information")) {
-                    TextField("Name", text: $viewModel.name)
-                    TextField("Phone Number", text: $viewModel.phoneNumber)
-                        .keyboardType(.phonePad)
-                    TextEditor(text: $viewModel.about)
-                        .frame(height: 100)
+                    
+                    if let loggedInUser = UserSession.shared.loggedInUser {
+                        TextField("Name", text: $viewModel.name)
+                            .textContentType(.name)
+                            .onAppear {
+                                viewModel.name = loggedInUser.firstname
+                            }
+                        
+                        TextField("Phone Number", text: $viewModel.phoneNumber)
+                            .keyboardType(.phonePad)
+                            .onAppear {
+                                viewModel.name = loggedInUser.contact
+                            }
+                        
+                        TextField("About Me...", text: $viewModel.about)
+                            .frame(height: 100)
+                            .onAppear {
+                                viewModel.name = loggedInUser.email
+                            }
+                    }
                 }
             }
-        }
-        .onAppear {
         }
         .navigationTitle("Edit Profile")
         .navigationBarItems(trailing: Button("Save") {

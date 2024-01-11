@@ -56,7 +56,7 @@ struct LogInView: View {
                             
                             
                             Button {
-                                handleLogin()
+                                handleLogin(userName: userName, password: password)
                             } label: {
                                 Text("Log in")
                                     .font(.title2)
@@ -83,7 +83,7 @@ struct LogInView: View {
         }
     }
     
-    func handleLogin() {
+    func handleLogin(userName: String, password: String) {
         FetchDataModel.fetchData { result in
             switch result {
             case .success(let users):
@@ -91,6 +91,8 @@ struct LogInView: View {
                 if let matchedUser = users.first(where: { $0.username == userName && $0.password == password }) {
                     
                     print("Login successful for user: \(matchedUser.username)")
+                    UserSession.shared.login(user: matchedUser)
+                    
                     isLoggedIn = true
                     
                 } else {
@@ -103,6 +105,21 @@ struct LogInView: View {
                 print("Error fetching data: \(error)")
             }
         }
+    }
+}
+
+
+class UserSession: ObservableObject {
+    static let shared = UserSession()
+    
+    @Published var loggedInUser: Description?
+    
+    func login(user: Description) {
+        loggedInUser = user
+    }
+    
+    func logout() {
+        loggedInUser = nil
     }
 }
 

@@ -24,6 +24,7 @@ struct UserView: View {
         NavigationView{
             VStack{
                 //MARK: - UserDisplayView()
+                
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
                         NavigationLink(destination: { ChatView() }, label: {
@@ -60,6 +61,7 @@ struct UserView: View {
 
                 
                 //MARK: - BottomView()
+                
                 VStack{
                     HStack{
                         
@@ -111,6 +113,7 @@ struct UserView: View {
             }
             
             //MARK: -  navigationView()
+            
             .navigationTitle("Chats")
             .searchable(text: $searchText)
             

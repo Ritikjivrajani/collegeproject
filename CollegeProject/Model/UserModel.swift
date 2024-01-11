@@ -46,6 +46,43 @@ class InsertDataModel: ObservableObject {
     }
 }
 
+struct updateDataModel: Codable{
+    let firstname: String
+    let email: String
+    let contact: String
+    let image: String
+}
+
+class UpdateModel: ObservableObject {
+    @Published var yourData: updateDataModel?
+    
+    func updateData(firstName: String, contact: String, email: String, image: String) {
+        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else { return }
+        let parameters: [String: Any] = [
+            "firstname": firstName,
+            "email": email,
+            "contact": contact,
+            "image": image
+        ]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+                if let decodedData = try? decoder.decode(updateDataModel.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.yourData = decodedData
+                    }
+                }
+            }
+        }.resume()
+    }
+}
+
+
 //MARK: - For FetchData
 
 struct FetchDataModel {

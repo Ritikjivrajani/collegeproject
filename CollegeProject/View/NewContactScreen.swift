@@ -17,8 +17,6 @@ struct NewContactScreen: View {
     @State private var selectedConatct: [CNContact] = []
     @State var picker = ""
     
-    var pickerData = ["user1", "user2", "user3", "user4", "user5"]
-    
     var body: some View {
         NavigationView{
             ZStack{

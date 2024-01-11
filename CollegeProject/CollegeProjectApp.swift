@@ -13,7 +13,7 @@ struct CollegeProjectApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack{
-                HomeView()
+                
                 ZStack{
                     if showLaunchView{
                         LaunchScreen(showLaunchView: $showLaunchView)
