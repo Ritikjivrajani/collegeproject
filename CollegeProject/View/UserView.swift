@@ -24,17 +24,18 @@ struct UserView: View {
     @State private var isImagePickerPresented = false
     @State private var selectContact = false
     @State private var fetchedContactNumbers: [String] = []
-    
+
     @ObservedObject var viewModel = InsertDataModel()
-    
+    @State private var scrollToTop = false
+
     var body: some View {
-        NavigationView{
-            VStack{
+        NavigationView {
+            VStack {
                 //MARK: - UserDisplayView()
-                List{
-                    ForEach(selectedContacts, id: \.self) { contact in
-                        NavigationLink(destination: { ChatView() }, label: {
-                            HStack (spacing: 16){
+                ScrollViewReader { proxy in
+                    List {
+                        ForEach(selectedContacts, id: \.self) { contact in
+                            HStack(spacing: 16) {
                                 Image(systemName: "person.fill")
                                     .font(.system(size: 32))
                                     .padding()
@@ -50,28 +51,31 @@ struct UserView: View {
                                 Spacer()
                                 
                                 Text("22nd")
-                                    .font(.system(size: 14 , weight: .semibold))
+                                    .font(.system(size: 14, weight: .semibold))
                             }
                             .foregroundColor(.black)
-                        })
-                        
-                        Button("Submit") {
-                            InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "123", password: "123456")
+                            .onTapGesture {
+                                // Handle tapping on the contact
+                                InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gmail.com", image: "123", password: "123456")
+                            }
+                            .onAppear {
+                                if scrollToTop {
+                                    proxy.scrollTo(0, anchor: .top)
+                                    scrollToTop = false
+                                }
+                            }
                         }
-                        .padding(.vertical , 8)
+                        .onDelete(perform: deleteItems)
                     }
-                    .onDelete(perform: deleteItems)
+                    .listStyle(.grouped)
+                    .scrollContentBackground(.hidden)
                 }
-                .listStyle(.grouped)
-                .scrollContentBackground(.hidden)
 
-                
                 //MARK: - BottomView()
-                VStack{
-                    HStack{
-                        
+                VStack {
+                    HStack {
                         NavigationLink(destination: EditProfileView(), label: {
-                            VStack{
+                            VStack {
                                 Image(systemName: "person.circle.fill")
                                     .resizable()
                                     .frame(width: 30, height: 30)
@@ -81,13 +85,12 @@ struct UserView: View {
                                     .foregroundColor(.black)
                             }
                         })
-                        
                         .frame(width: 100)
                         
-                        NavigationLink{
-                            
-                        } label: {
-                            VStack(alignment: .center){
+                        Button(action: {
+                            scrollToTop = true
+                        }) {
+                            VStack(alignment: .center) {
                                 Image(systemName: "ellipsis.message.fill")
                                     .resizable()
                                     .frame(width: 30, height: 30)
@@ -99,35 +102,32 @@ struct UserView: View {
                         }
                         .frame(width: 100)
                         
-                        NavigationLink{
-                            Settings()
-                        } label: {
-                            VStack(alignment: .center){
+                        NavigationLink(destination: Settings(), label: {
+                            VStack(alignment: .center) {
                                 Image(systemName: "person.2.badge.gearshape.fill")
                                     .resizable()
                                     .frame(width: 40, height: 30)
                                     .foregroundColor(.black)
                                 
-                                Text("settings")
+                                Text("Settings")
                                     .foregroundColor(.black)
                             }
-                        }
+                        })
                         .frame(width: 100)
                     }
                 }
             }
-            
+
             //MARK: -  navigationView()
             .navigationTitle("Chats")
             .searchable(text: $searchText)
-            
-            .toolbar{
+
+            .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
                 
-                ToolbarItemGroup(placement: .primaryAction) {
-                    
+                ToolbarItem(placement: .primaryAction) {
                     Button(action:{
                         isImagePickerPresented.toggle()
                     }) {
@@ -152,8 +152,8 @@ struct UserView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-    
-    func deleteItems(indexSet: IndexSet){
+
+    func deleteItems(indexSet: IndexSet) {
         selectedContacts.remove(atOffsets: indexSet)
     }
 }
