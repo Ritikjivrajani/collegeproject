@@ -142,26 +142,26 @@ struct FetchDataModel {
 //
 //        // API endpoint URL
 //        let apiURL = URL(string: "https://flashchatcollageproject.000webhostapp.com/access_phonebook_API.php")!
-//        
+//
 //        var request = URLRequest(url: apiURL)
 //        request.httpMethod = "POST"
 //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 //        request.httpBody = jsonData
-//        
+//
 //        URLSession.shared.dataTask(with: request) { data, response, error in
 //            if let error = error {
 //                print("Error: \(error.localizedDescription)")
 //                // Handle error
 //                return
 //            }
-//            
+//
 //            guard let httpResponse = response as? HTTPURLResponse,
 //                  (200...299).contains(httpResponse.statusCode) else {
 //                print("Invalid response")
 //                // Handle invalid response
 //                return
 //            }
-//            
+//
 //            if let data = data {
 //                do {
 //                    let json = try JSONSerialization.jsonObject(with: data, options: [])
@@ -188,7 +188,6 @@ class api{
         URLSession.shared.dataTask(with: url) { data, response, error in
             let decodedData = try! JSONDecoder().decode(contactFetch.self, from: data!)
             completion(decodedData)
-<<<<<<< HEAD
         }.resume()
     }
 }
@@ -207,50 +206,7 @@ class callapi{
         URLSession.shared.dataTask(with: url) { data, response, error in
             let decodedData = try! JSONDecoder().decode([afterLoginData].self, from: data!)
             print(decodedData)
-=======
->>>>>>> 2939e54b57d802fd081efb4dbab01a96d7f69098
         }.resume()
     }
 }
-
-struct UserData: Codable {
-    let id: String
-    let firstname: String
-    let lastname: String
-    let username: String
-    let email: String
-    let contact: String
-    let image: String
-    let password: String
-}
-
-class FetchData: ObservableObject {
-    @Published var userData = [UserData]()
-    
-    init() {
-        fetchData()
-    }
-    
-    func fetchData() {
-        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Fetch_API.php") else {
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let decodedData = try JSONDecoder().decode([UserData].self, from: data)
-                DispatchQueue.main.async {
-                    self.userData = decodedData
-                }
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
-        }.resume()
-    }
-}
-
 

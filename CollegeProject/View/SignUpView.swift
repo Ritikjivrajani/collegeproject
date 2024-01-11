@@ -32,10 +32,6 @@ struct SignUpView: View {
             ZStack{
                 BackGroundView()
                 
-<<<<<<< HEAD
-=======
-                
->>>>>>> 2939e54b57d802fd081efb4dbab01a96d7f69098
                 VStack{
                     HStack{
                         Text("Sign Up")
@@ -59,10 +55,6 @@ struct SignUpView: View {
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
                             .onTapGesture {
-<<<<<<< HEAD
-=======
-                                // Show image picker when profile picture is tapped
->>>>>>> 2939e54b57d802fd081efb4dbab01a96d7f69098
                                 isImagePickerPresented = true
                             }
                         
@@ -123,3 +115,4 @@ struct SignInView_Previews: PreviewProvider {
         SignUpView()
     }
 }
+
