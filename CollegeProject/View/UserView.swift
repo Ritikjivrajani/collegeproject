@@ -32,7 +32,6 @@ struct UserView: View {
         NavigationView {
             VStack {
                 //MARK: - UserDisplayView()
-                ScrollViewReader { proxy in
                     List {
                         ForEach(selectedContacts, id: \.self) { contact in
                             HStack(spacing: 16) {
@@ -58,18 +57,12 @@ struct UserView: View {
                                 // Handle tapping on the contact
                                 InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gmail.com", image: "123", password: "123456")
                             }
-                            .onAppear {
-                                if scrollToTop {
-                                    proxy.scrollTo(0, anchor: .top)
-                                    scrollToTop = false
-                                }
-                            }
                         }
                         .onDelete(perform: deleteItems)
                     }
                     .listStyle(.grouped)
                     .scrollContentBackground(.hidden)
-                }
+                
 
                 //MARK: - BottomView()
                 VStack {
@@ -139,14 +132,6 @@ struct UserView: View {
                     }
                     .padding()
                     
-                    Button{
-                        self.isContactPickerPresented.toggle()
-                    } label: {
-                        Image(systemName: "square.and.pencil")
-                    }
-                    .sheet(isPresented: $isContactPickerPresented) {
-                        NewContactScreen()
-                    }
                 }
             }
         }
