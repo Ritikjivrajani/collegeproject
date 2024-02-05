@@ -4,6 +4,7 @@
 //
 //  Created by Ritik Jivrajani on 26/11/23.
 //
+
 import SwiftUI
 import PhotosUI
 
@@ -11,74 +12,44 @@ struct EditProfileView: View {
     
     @StateObject private var viewModel = ProfileViewModel()
     @State private var isImagePickerPresented = false
-    @State private var selectedImage: UIImage?
-    @State private var imagePath: String = "Image path will be displayed here"
-    @State private var isLoggedIn = false
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Profile Picture")) {
-                    
-                    if let image = selectedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
-                        
-                        Button("Edit Picture") {
+                    Image(uiImage: viewModel.profilePicture)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            // Show image picker when profile picture is tapped
                             isImagePickerPresented = true
                         }
-                        
-                    } else {
-                        Image(uiImage: viewModel.profilePicture)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
-                            .onTapGesture {
-                                isImagePickerPresented = true
-                            }
-                        
-                        Button("Edit Picture") {
-                            isImagePickerPresented = true
-                        }
-                        .foregroundColor(.blue)
-                        .sheet(isPresented: $isImagePickerPresented) {
-                            PhotoPickerView(selectedImage: self.$selectedImage, imagePath: self.$imagePath)
-                        }
+
+                    Button("Edit Picture") {
+                        // Show image picker when "Edit Picture" is tapped
+                        isImagePickerPresented = true
                     }
-                    
+                    .foregroundColor(.blue)
+                    .sheet(isPresented: $isImagePickerPresented) {
+                        PhotoPickerView(image: $viewModel.profilePicture)
+                    }
                 }
 
                 Section(header: Text("Profile Information")) {
-                    
-                    if let loggedInUser = UserSession.shared.loggedInUser {
-                        TextField("Name", text: $viewModel.name)
-                            .textContentType(.name)
-                            .onAppear {
-                                viewModel.name = loggedInUser.firstname
-                            }
-                        
-                        TextField("Phone Number", text: $viewModel.phoneNumber)
-                            .keyboardType(.phonePad)
-                            .onAppear {
-                                viewModel.name = loggedInUser.contact
-                            }
-                        
-                        TextField("About Me...", text: $viewModel.about)
-                            .frame(height: 100)
-                            .onAppear {
-                                viewModel.name = loggedInUser.email
-                            }
-                    }
+                    TextField("Name", text: $viewModel.name)
+                    TextField("Phone Number", text: $viewModel.phoneNumber)
+                        .keyboardType(.phonePad)
+                    TextEditor(text: $viewModel.about)
+                        .frame(height: 100)
                 }
             }
         }
         .navigationTitle("Edit Profile")
         .navigationBarItems(trailing: Button("Save") {
-            
+            // Implement logic to save changes
+            viewModel.saveProfile()
         })
     }
 }

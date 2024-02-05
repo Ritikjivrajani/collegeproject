@@ -12,6 +12,7 @@ struct ContactUs: View {
         NavigationView {
             ZStack{
                 BackGroundView()
+                
             }
             .navigationTitle("Contact Us")
         }

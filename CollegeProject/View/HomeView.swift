@@ -12,6 +12,7 @@ struct HomeView: View {
         NavigationView{
             ZStack{
                 BackGroundView()
+                
                 VStack{
                     Group{
                         VStack(alignment: .leading){
@@ -66,7 +67,3 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
-
-
-
-

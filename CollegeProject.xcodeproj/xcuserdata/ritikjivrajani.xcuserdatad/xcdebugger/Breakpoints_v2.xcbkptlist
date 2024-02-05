@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
             endingLineNumber = "56"
-            landmarkName = "UpdateModel"
-            landmarkType = "3">
+            landmarkName = "fetchData(completion:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - 128496d62ac25e2a"
@@ -50,34 +50,19 @@
                   offsetFromSymbolStart = "256">
                </Location>
                <Location
-                  uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - 354a230a6d32c50d"
+                  uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - 827c9345a9859e33"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static CollegeProject.LoginModel.fetchData(completion: (Swift.Result&lt;Swift.Array&lt;CollegeProject.Description&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "CollegeProject"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ritikjivrajani/Desktop/CollegeProject/CollegeProject/Model/UserModel.swift"
+                  urlString = "file:///Users/ritikjivrajani/Downloads/collegeproject-877e3764f9ba7c76c2dd31a7d184e8daa89df942/CollegeProject/Model/UserModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "56"
                   endingLineNumber = "56"
                   offsetFromSymbolStart = "304">
-               </Location>
-               <Location
-                  uuid = "42DE3250-8E4C-4245-BC82-C863E928B72E - c8a5cfe3d63f7569"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static CollegeProject.FetchDataModel.fetchData(completion: (Swift.Result&lt;Swift.Array&lt;CollegeProject.Description&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "CollegeProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ritikjivrajani/Downloads/CollegeProject%204/CollegeProject/Model/UserModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "760">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -94,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "updateData(firstName:contact:email:image:)"
+            landmarkName = "fetchData(completion:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -128,34 +113,19 @@
                   offsetFromSymbolStart = "248">
                </Location>
                <Location
-                  uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3 - 354a230a6d32c5b1"
+                  uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3 - 827c9345a9859eb7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static CollegeProject.LoginModel.fetchData(completion: (Swift.Result&lt;Swift.Array&lt;CollegeProject.Description&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "CollegeProject"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ritikjivrajani/Desktop/CollegeProject/CollegeProject/Model/UserModel.swift"
+                  urlString = "file:///Users/ritikjivrajani/Downloads/collegeproject-877e3764f9ba7c76c2dd31a7d184e8daa89df942/CollegeProject/Model/UserModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "60"
                   endingLineNumber = "60"
                   offsetFromSymbolStart = "232">
-               </Location>
-               <Location
-                  uuid = "ABB3DB47-B808-4A1A-B820-34AE46C652E3 - 935d74ae1e174066"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static CollegeProject.FetchDataModel.fetchData(completion: (Swift.Result&lt;Swift.Array&lt;CollegeProject.Description&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "CollegeProject"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ritikjivrajani/Downloads/CollegeProject%204/CollegeProject/Model/UserModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "184">
                </Location>
             </Locations>
          </BreakpointContent>
