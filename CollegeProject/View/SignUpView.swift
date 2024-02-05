@@ -13,51 +13,6 @@ import FirebaseDatabase
 
 struct SignUpView: View {
     
-    
-    
-    func sendDataToServer() {
-            guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else {
-                print("Invalid URL")
-                return
-            }
-
-            let parameters = [
-                "firstName": firstName,
-                "lastName": lastName,
-                "userName": username,
-                "contact": contactNumber,
-                "email": email,
-                "image": profile,
-                "password": password
-            ] as [String : Any]
-
-            guard let jsonData = try? JSONSerialization.data(withJSONObject: parameters) else {
-                print("Failed to serialize data")
-                return
-            }
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error.localizedDescription)")
-                    return
-                }
-
-                if let data = data {
-                    // Process the response data here
-                    // Example: parse JSON response if the server returns JSON data
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response: \(responseString)")
-                        // Handle the response accordingly in your app
-                    }
-                }
-            }.resume()
-        }
-    
     @State var firstName: String = ""
     @State var lastName: String = ""
     @State var username: String = ""
@@ -68,7 +23,6 @@ struct SignUpView: View {
     @StateObject private var profile = ProfileViewModel()
     @State private var isImagePickerPresented = false
     var ref: DatabaseReference!
-    @ObservedObject var viewModel = SignInModel()
     
     var body: some View {
         ZStack{

@@ -22,17 +22,11 @@ struct UserView: View {
         NavigationView{
             VStack{
                 //MARK: - UserDisplayView()
-<<<<<<< HEAD
-                    List {
-                        ForEach(selectedContacts, id: \.self) { contact in
-                            HStack(spacing: 16) {
-=======
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
                         
                         NavigationLink(destination: { ChatView() }, label: {
                             HStack (spacing: 16){
->>>>>>> a654c22589d6760bb64e2c4c88d70c698739a0d8
                                 Image(systemName: "person.fill")
                                     .font(.system(size: 32))
                                     .padding()
@@ -51,33 +45,19 @@ struct UserView: View {
                                     .font(.system(size: 14 , weight: .semibold))
                             }
                             .foregroundColor(.black)
-<<<<<<< HEAD
-                            .onTapGesture {
-                                // Handle tapping on the contact
-                                InsertDataModel().insertData(firstName: contact.givenName, lastName: contact.familyName, userName: "\(contact.givenName) \(contact.familyName)", contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gmail.com", image: "123", password: "123456")
-                            }
-=======
                         })
                         
                         Button("submit"){
                             viewModel.insertData(firstName: contact.givenName, lastName: contact.familyName, userName: contact.givenName, contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "", password: contact.givenName)
->>>>>>> a654c22589d6760bb64e2c4c88d70c698739a0d8
                         }
                         
                         .padding(.vertical , 8)
                     }
-<<<<<<< HEAD
-                    .listStyle(.grouped)
-                    .scrollContentBackground(.hidden)
-                
 
-=======
                     .onDelete(perform: deleteItems)
                 }
                 .listStyle(.grouped)
                 .scrollContentBackground(.hidden)
-                
->>>>>>> a654c22589d6760bb64e2c4c88d70c698739a0d8
                 //MARK: - BottomView()
                 VStack{
                     HStack{
@@ -150,8 +130,6 @@ struct UserView: View {
                     }
                     .padding()
                     
-<<<<<<< HEAD
-=======
                     Button{
                         self.isContactPickerPresented.toggle()
                     } label: {
@@ -160,7 +138,6 @@ struct UserView: View {
                     .sheet(isPresented: $isContactPickerPresented) {
                         ContactPicker(selectedContacts: $selectedContacts)
                     }
->>>>>>> a654c22589d6760bb64e2c4c88d70c698739a0d8
                 }
             }
         }
