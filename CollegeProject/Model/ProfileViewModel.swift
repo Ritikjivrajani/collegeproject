@@ -9,22 +9,23 @@ import Foundation
 import SwiftUI
 
 class ProfileViewModel: ObservableObject {
-        @Published var name: String = "John Doe"
-        @Published var phoneNumber: String = "123-456-7890"
-        @Published var about: String = "About me..."
-        @Published var profilePicture: UIImage
+    @Published var name: String = "John Doe"
+    @Published var phoneNumber: String = "123-456-7890"
+    @Published var about: String = "About me..."
+    @Published var profilePicture: UIImage
 
     init() {
+        // Provide a default image if "default-profile-picture" is not found
         if let defaultImage = UIImage(systemName: "person.circle"){
             self.profilePicture = defaultImage
         } else {
+            // You can replace this with your own default image
             self.profilePicture = UIImage(systemName: "person.circle")!
         }
     }
 
     func saveProfile() {
-        //To save your profile more code come soon...
+        // Implement logic to save changes to the backend or storage
         print("Profile saved")
     }
 }
-

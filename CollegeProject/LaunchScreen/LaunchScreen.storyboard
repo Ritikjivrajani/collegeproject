@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,20 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipsis.message.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="v0v-zN-Z5b">
-                                <rect key="frame" x="114" y="344.33333333333337" width="165" height="164"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipsis.message.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="E4a-iX-kw4">
+                                <rect key="frame" x="121.66666666666669" y="351.66666666666669" width="150" height="149"/>
                                 <color key="tintColor" name="newColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="165" id="ES0-pg-Bte"/>
-                                    <constraint firstAttribute="height" constant="165" id="ZFM-U0-8Hh"/>
+                                    <constraint firstAttribute="height" constant="150" id="32c-fm-aAf"/>
+                                    <constraint firstAttribute="width" constant="150" id="V0G-pp-Kth"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="v0v-zN-Z5b" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="RuA-Gu-fJi"/>
-                            <constraint firstItem="v0v-zN-Z5b" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Zze-xp-2Q8"/>
+                            <constraint firstItem="E4a-iX-kw4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Vtn-Kb-EOz"/>
+                            <constraint firstItem="E4a-iX-kw4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vm2-qn-5yV"/>
                         </constraints>
                     </view>
                 </viewController>

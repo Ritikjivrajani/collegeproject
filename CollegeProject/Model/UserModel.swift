@@ -1,21 +1,18 @@
 import Foundation
-import Contacts
 
 struct Description: Codable {
-    let firstname: String
-    let lastname: String
-    let username: String
+    let firstName: String
+    let lastName: String
+    let userName: String
     let email: String
     let contact: String
     let image: String
     let password: String
 }
 
-//MARK: - ForInsertData
-
-class InsertDataModel: ObservableObject {
+class SignInModel: ObservableObject {
     @Published var yourData: Description?
-    
+
     func insertData(firstName: String, lastName: String, userName: String, contact: String, email: String, image: String, password: String) {
         guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else { return }
         let parameters: [String: Any] = [
@@ -31,61 +28,23 @@ class InsertDataModel: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-        
+
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                let decoder = JSONDecoder()
-                if let decodedData = try? decoder.decode(Description.self, from: data) {
-                    DispatchQueue.main.async {
-                        self.yourData = decodedData
+                // Parse the data and update yourData property
+                if let data = data {
+                    let decoder = JSONDecoder()
+                    if let decodedData = try? decoder.decode(Description.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.yourData = decodedData
+                        }
                     }
                 }
-            }
             
         }.resume()
     }
 }
 
-struct updateDataModel: Codable{
-    let firstname: String
-    let email: String
-    let contact: String
-    let image: String
-}
-
-class UpdateModel: ObservableObject {
-    @Published var yourData: updateDataModel?
-    
-    func updateData(firstName: String, contact: String, email: String, image: String) {
-        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Insert_API.php") else { return }
-        let parameters: [String: Any] = [
-            "firstname": firstName,
-            "email": email,
-            "contact": contact,
-            "image": image
-        ]
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                let decoder = JSONDecoder()
-                if let decodedData = try? decoder.decode(updateDataModel.self, from: data) {
-                    DispatchQueue.main.async {
-                        self.yourData = decodedData
-                    }
-                }
-            }
-        }.resume()
-    }
-}
-
-
-//MARK: - For FetchData
-
-struct FetchDataModel {
+struct LoginModel {
     static func fetchData(completion: @escaping (Result<[Description], Error>) -> Void) {
         guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Fetch_API.php") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
@@ -118,95 +77,27 @@ struct FetchDataModel {
     }
 }
 
-
-
-//struct ContactDescription: Codable{
-//    let name: String
-//    let contact: String
-//}
-
-//class ContactAPI{
-//    func sendContactsToAPI(Name: String, Contact: String) {
-//        // Contacts data to be sent
-//        let contactsData: [String: Any] = [
-//            "contacts": [
-//                ["name": Name, "phone_number": Contact]
-//                // Add more contacts as needed
-//            ]
-//        ]
-//
-//        // Convert the contacts data to JSON
-//        guard let jsonData = try? JSONSerialization.data(withJSONObject: contactsData) else {
-//            return
-//        }
-//
-//        // API endpoint URL
-//        let apiURL = URL(string: "https://flashchatcollageproject.000webhostapp.com/access_phonebook_API.php")!
-//
-//        var request = URLRequest(url: apiURL)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = jsonData
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let error = error {
-//                print("Error: \(error.localizedDescription)")
-//                // Handle error
-//                return
-//            }
-//
-//            guard let httpResponse = response as? HTTPURLResponse,
-//                  (200...299).contains(httpResponse.statusCode) else {
-//                print("Invalid response")
-//                // Handle invalid response
-//                return
-//            }
-//
-//            if let data = data {
-//                do {
-//                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    print("Response: \(json)")
-//                    // Handle the response from the API
-//                } catch {
-//                    print("Error parsing JSON: \(error.localizedDescription)")
-//                    // Handle JSON parsing error
-//                }
-//            }
-//        }.resume()
-//    }
-//}
-//
-
-struct contactFetch: Decodable{
-    let data: [String]
-}
-
-class api{
-    func fetchConatct(completion: @escaping (contactFetch) -> ()){
-        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/select_contact_API.php") else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            let decodedData = try! JSONDecoder().decode(contactFetch.self, from: data!)
-            completion(decodedData)
-        }.resume()
+class login{
+    func handleLogin(userName: String, password: String) {
+        // Fetch data from the API
+        LoginModel.fetchData { result in
+            switch result {
+            case .success(let users):
+                // Compare user input with fetched user data
+                if let matchedUser = users.first(where: { $0.userName == userName && $0.password == password }) {
+                    // Login successful
+                    print("Login successful for user: \(matchedUser.userName)")
+                    //                   loginSuccess = true
+                    return
+                } else {
+                    // Login failed
+                    print("Invalid credentials")
+                    //                   loginSuccess = false
+                    return
+                }
+            case .failure(let error):
+                print("Error fetching data: \(error)")
+            }
+        }
     }
 }
-
-struct afterLoginData: Codable{
-    var firstname: String
-    var lastname: String
-    var email: String
-    var image: String
-}
-
-class callapi{
-    func afterlogin(){
-        guard let url = URL(string: "https://flashchatcollageproject.000webhostapp.com/Fetch_API.php") else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            let decodedData = try! JSONDecoder().decode([afterLoginData].self, from: data!)
-            print(decodedData)
-        }.resume()
-    }
-}
-

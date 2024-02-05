@@ -41,12 +41,7 @@ struct Privacy: View {
                 }
                 .padding()
             }
-            
+            .navigationTitle("Privacy")
         }
-        .navigationTitle("Privacy")
     }
-}
-
-#Preview {
-    Privacy()
 }

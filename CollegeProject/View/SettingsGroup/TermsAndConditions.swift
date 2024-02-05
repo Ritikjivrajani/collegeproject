@@ -70,13 +70,13 @@ If you have any questions or concerns regarding these Terms, please contact us a
                 .multilineTextAlignment(.leading)
             }
             .padding()
-            .background(Color.white)
-            .cornerRadius(15)
+            .background(Color.white) // Set background color
+            .cornerRadius(15) // Add corner radius
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.gray, lineWidth: 1) 
+                    .stroke(Color.gray, lineWidth: 1) // Add border
             )
-            .padding()
+            .padding() // Padding for the border and background
         }
         .navigationTitle("Terms and Conditions")
     }
