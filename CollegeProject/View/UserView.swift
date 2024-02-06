@@ -23,7 +23,7 @@ struct UserView: View {
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
                         
-                        NavigationLink(destination: { ChatView() }, label: {
+                        NavigationLink(destination: { /*ChatView()*/ }, label: {
                             HStack (spacing: 16){
                                 Image(systemName: "person.fill")
                                     .font(.system(size: 32))

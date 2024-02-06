@@ -18,7 +18,7 @@ class register: ObservableObject {
                 print(e)
             } else {
                 let reference = Database.database().reference()
-               
+                
                 reference.child("users").child((authResult?.user.uid)!).setValue(["FirstName": self.firstName, "LastName": self.lastName, "PhoneNumber": self.contactNumber])
                 
                 self.registerSuccess = true
@@ -34,7 +34,7 @@ class Login: ObservableObject {
     @Published var showingAlert = false
     @Published var LoginSuccess = false
     
-    func loginUser(){
+    func loginUser() {
         if email == "" && password == "" {
             showingAlert = true
         }
@@ -50,30 +50,29 @@ class Login: ObservableObject {
     }
 }
 
-class FirebaseService: ObservableObject {
-    @Published var items: [user] = []
-    struct user: Decodable, Hashable{
-        var FirstName: String
-        var LastName: String
-    }
+struct UsersData: Hashable {
+    var firstName: String
+    var lastName: String
+    var userId: String
+}
 
+class FirebaseService: ObservableObject {
+    @Published var items: [UsersData] = []
+    
     init() {
         fetchData()
     }
-
     func fetchData() {
-        Database.database().reference().child("users").observe(.value) { snapshot in
-            var newItems: [user] = []
-
-            for child in snapshot.children {
-                if let snapshot = child as? DataSnapshot,
-                   let item = try? snapshot.decode(user.self) {
-                    newItems.append(item)
-                }
+        
+        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = UsersData(
+                    firstName: (dictionary["FirstName"] as! String),
+                    lastName: (dictionary["LastName"] as! String),
+                    userId: snapshot.key)
+                self.items.append(user)
             }
-
-            self.items = newItems
-        }
+        }, withCancel: nil)
     }
 }
 
