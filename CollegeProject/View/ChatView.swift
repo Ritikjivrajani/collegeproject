@@ -14,7 +14,7 @@ struct ChatView: View {
     @State private var isKeyboardHidden = true
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
                 
                 VStack{

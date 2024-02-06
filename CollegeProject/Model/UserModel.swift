@@ -1,6 +1,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseDatabaseInternal
+import Firebase
 
 class register: ObservableObject {
     
@@ -46,5 +47,40 @@ class Login: ObservableObject {
                 self.LoginSuccess = true
             }
         }
+    }
+}
+
+class FirebaseService: ObservableObject {
+    @Published var items: [user] = []
+    struct user: Decodable, Hashable{
+        var FirstName: String
+        var LastName: String
+    }
+
+    init() {
+        fetchData()
+    }
+
+    func fetchData() {
+        Database.database().reference().child("users").observe(.value) { snapshot in
+            var newItems: [user] = []
+
+            for child in snapshot.children {
+                if let snapshot = child as? DataSnapshot,
+                   let item = try? snapshot.decode(user.self) {
+                    newItems.append(item)
+                }
+            }
+
+            self.items = newItems
+        }
+    }
+}
+
+extension DataSnapshot {
+    func decode<T>(_ type: T.Type) throws -> T where T: Decodable {
+        let data = try JSONSerialization.data(withJSONObject: value!)
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
     }
 }

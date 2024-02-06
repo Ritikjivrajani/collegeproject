@@ -15,7 +15,7 @@ struct UserView: View {
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
-
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -44,18 +44,12 @@ struct UserView: View {
                             }
                             .foregroundColor(.black)
                         })
-                        
-                        Button("submit"){
-//                            viewModel.insertData(firstName: contact.givenName, lastName: contact.familyName, userName: contact.givenName, contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "", password: contact.givenName)
-                        }
-                        
                         .padding(.vertical , 8)
                     }
-
                     .onDelete(perform: deleteItems)
                 }
                 .listStyle(.grouped)
-                .scrollContentBackground(.hidden)
+                
                 //MARK: - BottomView()
                 VStack{
                     HStack{
@@ -71,10 +65,9 @@ struct UserView: View {
                                     .foregroundColor(.black)
                             }
                         })
-                        
                         .frame(width: 100)
                         
-                        NavigationLink{
+                        Button{
                             
                         } label: {
                             VStack(alignment: .center){
@@ -90,7 +83,7 @@ struct UserView: View {
                         .frame(width: 100)
                         
                         NavigationLink{
-//                            SettingsView()
+                            Settings()
                         } label: {
                             VStack(alignment: .center){
                                 Image(systemName: "person.2.badge.gearshape.fill")
@@ -128,13 +121,13 @@ struct UserView: View {
                     }
                     .padding()
                     
-                    Button{
+                    Button {
                         self.isContactPickerPresented.toggle()
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
-                        ContactPicker(selectedContacts: $selectedContacts)
+                        UserData()
                     }
                 }
             }

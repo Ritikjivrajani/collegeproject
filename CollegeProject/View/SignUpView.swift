@@ -16,7 +16,7 @@ struct SignUpView: View {
     @State private var isImagePickerPresented = false
     @ObservedObject private var profile = ProfileViewModel()
     @ObservedObject var viewModel = register()
-    
+        
     var body: some View {
         ZStack {
             BackGroundView()
