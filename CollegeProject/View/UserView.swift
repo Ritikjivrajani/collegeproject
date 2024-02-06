@@ -15,9 +15,7 @@ struct UserView: View {
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
-    
-    @ObservedObject var viewModel = SignInModel()
-    
+
     var body: some View {
         NavigationView{
             VStack{
@@ -48,7 +46,7 @@ struct UserView: View {
                         })
                         
                         Button("submit"){
-                            viewModel.insertData(firstName: contact.givenName, lastName: contact.familyName, userName: contact.givenName, contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "", password: contact.givenName)
+//                            viewModel.insertData(firstName: contact.givenName, lastName: contact.familyName, userName: contact.givenName, contact: contact.phoneNumbers.first?.value.stringValue ?? "", email: "\(contact.givenName)@gamil.com", image: "", password: contact.givenName)
                         }
                         
                         .padding(.vertical , 8)

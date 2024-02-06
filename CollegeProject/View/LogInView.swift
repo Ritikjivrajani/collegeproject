@@ -10,13 +10,10 @@ import FirebaseAuth
 
 struct LogInView: View {
     
-    @State var userName: String = ""
-    @State var password: String = ""
     @State private var profilePicture: String = "person.circle"
     @State private var showAlert = false
     @State private var loginSuccess = false
-    var viewModel = login()
-    @State var email = ""
+    @ObservedObject var viewModel = Login()
     
     var body: some View {
         ZStack{
@@ -45,18 +42,12 @@ struct LogInView: View {
                     
                     Group{
                         VStack(alignment: .leading, spacing: 20){
-                            TextFieldView(fieldData: $email, placeholderText: "Email...")
+                            TextFieldView(fieldData: $viewModel.email, placeholderText: "Email...")
                             
-                            SecureFieldView(fieldData: $password, placeholderText: "Password...")
+                            SecureFieldView(fieldData: $viewModel.password, placeholderText: "Password...")
                             
                             Button {
-                                Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                                    if let e = error{
-                                        print(e)
-                                    } else {
-                                        print("Login success...")
-                                    }
-                                }
+                                viewModel.loginUser()
                             } label: {
                                 Text("Log in")
                                     .font(.title2)
@@ -66,13 +57,21 @@ struct LogInView: View {
                                     .background(.black)
                                     .cornerRadius(30)
                             }
-                            
-                            
+                            NavigationLink(
+                                destination: UserView(),
+                                isActive: $viewModel.LoginSuccess,
+                                label: { EmptyView() }
+                            ).hidden()
                         }
+                        .alert(isPresented: $viewModel.showingAlert, content: {
+                            Alert(title: Text("Enter your"), message: Text("email and password."), dismissButton: .default(Text("Got it!")))
+                        })
                         .frame(width: 350, height: 250)
                         .background(.opacity(0.3))
                         .cornerRadius(20)
                         .padding(.bottom, 30)
+                        
+                        
                     }
                 }
             }
