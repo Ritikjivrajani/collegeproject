@@ -67,8 +67,9 @@ struct SignUpView: View {
                             .background(.black)
                             .cornerRadius(30)
                     })
+                    
                     NavigationLink(
-                        destination: UserView(),
+                        destination: LogInView(),
                         isActive: $viewModel.registerSuccess,
                         label: { EmptyView() }
                     ).hidden()
