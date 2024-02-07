@@ -11,6 +11,7 @@ class register: ObservableObject {
     @Published var password: String = ""
     @Published var email: String = ""
     @Published var registerSuccess = false
+    @Published var isBlock = false
     
     func registerUser(){
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
@@ -19,7 +20,7 @@ class register: ObservableObject {
             } else {
                 let reference = Database.database().reference()
                
-                reference.child("users").child((authResult?.user.uid)!).setValue(["FirstName": self.firstName, "LastName": self.lastName, "PhoneNumber": self.contactNumber])
+                reference.child("users").child((authResult?.user.uid)!).setValue(["FirstName": self.firstName, "LastName": self.lastName, "PhoneNumber": self.contactNumber, "isBlock": self.isBlock])
                 
                 self.registerSuccess = true
             }
@@ -33,18 +34,22 @@ class Login: ObservableObject {
     @Published var password: String = ""
     @Published var showingAlert = false
     @Published var LoginSuccess = false
+    @Published var AdminLogin = false
     
     func loginUser(){
         if email == "" && password == "" {
             showingAlert = true
-        }
-        
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let e = error {
-                print(e)
-            } else {
-                print("Login success...")
-                self.LoginSuccess = true
+        } else if email == "admin@gmail.com" && password == "123456" {
+            AdminLogin = true
+        } else {
+            AdminLogin = false
+            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                if let e = error {
+                    print(e)
+                } else {
+                    print("Login success...")
+                    self.LoginSuccess = true
+                }
             }
         }
     }
