@@ -49,7 +49,10 @@ struct ChatView: View {
                     .padding(8)
                     
                     Button(action: {
-                        sendMessage()
+//                        sendMessage()
+                        
+                        sendData(user: UsersData(firstName: item.firstName, lastName: item.lastName, userId: item.userId), message: newMessage)
+                        
                     }) {
                         Image(systemName: "arrow.up.circle.fill")
                             .resizable()

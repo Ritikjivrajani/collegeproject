@@ -83,3 +83,39 @@ extension DataSnapshot {
         return try decoder.decode(T.self, from: data)
     }
 }
+
+func sendData(user : UsersData, message : String, imageUrl : String? = nil){
+    let reference = Database.database().reference().child("messages")
+    
+    let childRef = reference.childByAutoId()
+    
+    let toId = user.userId
+    
+    let fromId = Auth.auth().currentUser!.uid
+    
+    let timeStamp = Int(NSDate().timeIntervalSince1970)
+    
+    var values = ["text":message, "toId":toId, "fromId":fromId,"timestamp":timeStamp] as [String : Any]
+    
+    if let imageUrl = imageUrl { values["imageUrl"] = imageUrl }
+    
+    childRef.updateChildValues(values) { (error, ref) in
+        
+        if let error = error{
+            
+            print(error.localizedDescription)
+            
+        }else{
+            
+            let userMessagesRef = Database.database().reference().child("user-messages").child(fromId)
+            
+            let messageId = childRef.key!
+            
+            userMessagesRef.updateChildValues([messageId:"a"])
+            
+            let recipientUserMessagesReference = Database.database().reference().child("user-messages").child(toId )
+            
+            recipientUserMessagesReference.updateChildValues([messageId:"a"])
+        }
+    }
+}
