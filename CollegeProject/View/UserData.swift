@@ -10,27 +10,31 @@ import SwiftUI
 struct UserData: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject private var firebaseService = FirebaseService()
+    var onDismiss: ((_ model: UsersData) -> Void)?
+    
     var body: some View{
         NavigationView{
             ZStack{
                 List{
                     Section {
                         ForEach(firebaseService.items, id: \.userId){ item in
-                            NavigationLink(destination: ChatView(item: item)) {
-                                HStack {
-                                    Image(systemName: "person.circle")
-                                        .resizable()
-                                        .frame(width: 50, height: 50)
-                                    
-                                    VStack(alignment: .leading){
-                                        Text("\(item.firstName) \(item.lastName)")
-                                            .font(.title3)
-                                            .fontWeight(.medium)
-                                        Text("caption")
-                                            .foregroundStyle(.gray)
-                                            .font(.headline)
-                                    }
+                            HStack {
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                
+                                VStack(alignment: .leading){
+                                    Text("\(item.firstName) \(item.lastName)")
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                    Text("caption")
+                                        .foregroundStyle(.gray)
+                                        .font(.headline)
                                 }
+                            }
+                            .onTapGesture {
+                                onDismiss!(item)
+                                presentationMode.wrappedValue.dismiss()
                             }
                             .navigationTitle("New Chats")
                             .navigationBarTitleDisplayMode(.inline)

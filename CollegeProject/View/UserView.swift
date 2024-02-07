@@ -15,11 +15,14 @@ struct UserView: View {
     @State private var isContactPickerPresented = false
     @State private var searchText = ""
     @State private var isImagePickerPresented = false
+    @State var users: UsersData = UsersData(firstName: "", lastName: "", userId: "")
     
     var body: some View {
         NavigationView{
             VStack{
                 //MARK: - UserDisplayView()
+                
+                
                 List{
                     ForEach(selectedContacts, id: \.self) { contact in
                         
@@ -121,13 +124,21 @@ struct UserView: View {
                     }
                     .padding()
                     
+                    NavigationLink("click"){
+                        ChatView(item: users)
+                    }
+                    
                     Button {
                         self.isContactPickerPresented.toggle()
                     } label: {
                         Image(systemName: "square.and.pencil")
                     }
                     .sheet(isPresented: $isContactPickerPresented) {
-                        UserData()
+                        UserData { user in
+                            DispatchQueue.main.async{
+                                self.users = user
+                            }
+                        }
                     }
                 }
             }
@@ -138,6 +149,7 @@ struct UserView: View {
     func deleteItems(indexSet: IndexSet){
         selectedContacts.remove(atOffsets: indexSet)
     }
+    
 }
 
 struct UserView_Preview: PreviewProvider {

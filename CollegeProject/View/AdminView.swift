@@ -23,7 +23,7 @@ struct AdminView: View {
                                     .frame(width: 50, height: 50)
 
                                 VStack(alignment: .leading) {
-                                    Text("\(item.FirstName) \(item.LastName)")
+                                    Text("\(item.firstName) \(item.lastName)")
                                         .font(.title3)
                                         .fontWeight(.medium)
                                     Text("caption")
@@ -34,7 +34,7 @@ struct AdminView: View {
                                 Spacer()
 
                                 Button("Block") {
-                                    print("Block \(item.FirstName) \(item.LastName)")
+                                    print("Block \(item.firstName) \(item.lastName)")
                                     
                                     block.isBlock = true
                                 }

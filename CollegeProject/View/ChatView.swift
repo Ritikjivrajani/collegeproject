@@ -49,8 +49,6 @@ struct ChatView: View {
                     .padding(8)
                     
                     Button(action: {
-//                        sendMessage()
-                        
                         sendData(user: UsersData(firstName: item.firstName, lastName: item.lastName, userId: item.userId), message: newMessage)
                         
                     }) {

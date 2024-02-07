@@ -19,14 +19,9 @@ class register: ObservableObject {
                 print(e)
             } else {
                 let reference = Database.database().reference()
-<<<<<<< HEAD
                
                 reference.child("users").child((authResult?.user.uid)!).setValue(["FirstName": self.firstName, "LastName": self.lastName, "PhoneNumber": self.contactNumber, "isBlock": self.isBlock])
-=======
-                
-                reference.child("users").child((authResult?.user.uid)!).setValue(["FirstName": self.firstName, "LastName": self.lastName, "PhoneNumber": self.contactNumber])
->>>>>>> 46297727696152aa3ff7b164f3476b074583cf15
-                
+
                 self.registerSuccess = true
             }
         }
@@ -128,4 +123,24 @@ func sendData(user : UsersData, message : String, imageUrl : String? = nil){
             recipientUserMessagesReference.updateChildValues([messageId:"a"])
         }
     }
+}
+
+func observeMessages(completion : @escaping ([String:AnyObject],String)->()){
+    guard let uid = Auth.auth().currentUser?.uid else {return}
+    
+    let userMessagesref = Database.database().reference().child("user-messages").child(uid)
+    
+    userMessagesref.observe(.childAdded, with: { (snapshot) in
+        
+        let messageId = snapshot.key
+        
+        let messagesRef = Database.database().reference().child("messages").child(messageId)
+        
+        messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let dictionary = snapshot.value as?[String:AnyObject] else { return }
+            
+            completion(dictionary,snapshot.key)
+        }, withCancel: nil)
+    }, withCancel: nil)
 }
