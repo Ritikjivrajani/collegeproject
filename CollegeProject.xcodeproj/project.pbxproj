@@ -20,6 +20,7 @@
 		667E37452B10620200234BB5 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E37442B10620200234BB5 /* Help.swift */; };
 		66A24BD72B1F4018004284B9 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A24BD62B1F4018004284B9 /* ChatView.swift */; };
 		66A24BD92B1F4129004284B9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A24BD82B1F4129004284B9 /* Settings.swift */; };
+		66C3EEA32B72457A002A3C0E /* AdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3EEA22B72457A002A3C0E /* AdminView.swift */; };
 		66C7AEC22B063C81003AAEF0 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C7AEC12B063C81003AAEF0 /* LogInView.swift */; };
 		66D1F4562B0279D60045461C /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D1F4552B0279D60045461C /* SignUpView.swift */; };
 		66FA09AE2B05EBA0005776DA /* BackGroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA09AD2B05EBA0005776DA /* BackGroundView.swift */; };
@@ -81,6 +82,7 @@
 		667E37462B11C17500234BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		66A24BD62B1F4018004284B9 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		66A24BD82B1F4129004284B9 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		66C3EEA22B72457A002A3C0E /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
 		66C7AEC12B063C81003AAEF0 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		66D1F4552B0279D60045461C /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		66FA09AD2B05EBA0005776DA /* BackGroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				6644409F2B0DCBC40024F1BE /* UserView.swift */,
 				66A24BD62B1F4018004284B9 /* ChatView.swift */,
 				B54FE2A92B720FD10088E2EE /* UserData.swift */,
+				66C3EEA22B72457A002A3C0E /* AdminView.swift */,
 				664440A72B0DD1170024F1BE /* SettingsGroup */,
 			);
 			path = View;
@@ -350,6 +353,7 @@
 				B523F8162B1361D3000521EA /* ContactView.swift in Sources */,
 				B5BC49A12B14675C00CBB6F1 /* TellAFriend.swift in Sources */,
 				667E37452B10620200234BB5 /* Help.swift in Sources */,
+				66C3EEA32B72457A002A3C0E /* AdminView.swift in Sources */,
 				B5BC49A52B146A6800CBB6F1 /* PhotoPickerView.swift in Sources */,
 				B5BC49A72B146AE000CBB6F1 /* ProfileViewModel.swift in Sources */,
 				6668BAD12B00ECA700551459 /* CollegeProjectApp.swift in Sources */,

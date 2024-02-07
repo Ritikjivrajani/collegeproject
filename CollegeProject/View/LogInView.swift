@@ -62,6 +62,12 @@ struct LogInView: View {
                                 isActive: $viewModel.LoginSuccess,
                                 label: { EmptyView() }
                             ).hidden()
+                            
+                            NavigationLink(
+                                destination: AdminView(),
+                                isActive: $viewModel.AdminLogin,
+                                label: { EmptyView() }
+                            ).hidden()
                         }
                         .alert(isPresented: $viewModel.showingAlert, content: {
                             Alert(title: Text("Enter your"), message: Text("email and password."), dismissButton: .default(Text("Got it!")))
