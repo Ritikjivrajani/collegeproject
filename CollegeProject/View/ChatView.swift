@@ -12,13 +12,14 @@ struct ChatView: View {
     @State private var messages: [Message] = []
     @State private var newMessage = ""
     @State private var isKeyboardHidden = true
+    let item: UsersData
     
     var body: some View {
         NavigationView {
             VStack {
                 
                 VStack{
-                    Text("UserName")
+                    Text(item.firstName)
                         .font(.title2)
                         .padding(.top, 20)
                         .foregroundColor(.white)
@@ -89,11 +90,11 @@ struct ChatView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChatView()
+//    }
+//}
 
 
 // chat view
